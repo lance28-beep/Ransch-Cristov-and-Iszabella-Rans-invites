@@ -2,6 +2,8 @@
 
 import { useEffect, useState, useMemo } from "react"
 import { motion } from "motion/react"
+import Image from "next/image"
+import { getRandomBearImages } from "@/lib/bear-utils"
 
 const desktopImages = [
   "/desktop-background/couple (1).jpeg",
@@ -27,6 +29,12 @@ export function Celebration() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
   const [imagesLoaded, setImagesLoaded] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
+  const [bearImages, setBearImages] = useState<string[]>([])
+  
+  // Initialize bear images on client side only to avoid hydration mismatch
+  useEffect(() => {
+    setBearImages(getRandomBearImages(2))
+  }, [])
 
   // Detect screen size and update isMobile state
   useEffect(() => {
@@ -54,7 +62,7 @@ export function Celebration() {
     setCurrentImageIndex(0)
     
     // Load first image with priority to show it immediately
-    const firstImg = new Image()
+    const firstImg = new window.Image()
     firstImg.src = backgroundImages[0]
     firstImg.onload = () => {
       setImagesLoaded(true) // Show first image immediately
@@ -64,7 +72,7 @@ export function Celebration() {
     setTimeout(() => {
       if (typeof navigator !== 'undefined' && (navigator as any).connection?.saveData) return
       backgroundImages.slice(1, 3).forEach((src) => {
-        const img = new Image()
+        const img = new window.Image()
         img.decoding = 'async'
         img.loading = 'lazy' as any
         img.src = src
@@ -89,7 +97,7 @@ export function Celebration() {
     setTimeout(() => {
       if (typeof navigator !== 'undefined' && (navigator as any).connection?.saveData) return
       backgroundImages.slice(3).forEach((src) => {
-        const img = new Image()
+        const img = new window.Image()
         img.decoding = 'async'
         img.loading = 'lazy' as any
         img.src = src
@@ -100,6 +108,42 @@ export function Celebration() {
 
   return (
     <section id="celebration" className="relative h-[60vh] sm:h-[70vh] md:h-[80vh] flex items-start justify-center overflow-hidden">
+      {/* Bear decorations */}
+      <div className="absolute inset-0 z-[5] pointer-events-none overflow-hidden">
+        {bearImages[0] && (
+          <motion.div
+            className="absolute top-[18%] right-[6%] w-14 h-14 sm:w-18 sm:h-18 md:w-22 md:h-22 opacity-60"
+            initial={{ opacity: 0, scale: 0.8, rotate: -12 }}
+            animate={{ opacity: 0.6, scale: 1, rotate: 0 }}
+            transition={{ delay: 1, duration: 0.8 }}
+          >
+            <Image
+              src={bearImages[0]}
+              alt="Bear decoration"
+              fill
+              className="object-contain drop-shadow-lg"
+              style={{ filter: 'drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2))' }}
+            />
+          </motion.div>
+        )}
+        {bearImages[1] && (
+          <motion.div
+            className="absolute bottom-[22%] left-[6%] w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 opacity-60"
+            initial={{ opacity: 0, scale: 0.8, rotate: 12 }}
+            animate={{ opacity: 0.6, scale: 1, rotate: 0 }}
+            transition={{ delay: 1.2, duration: 0.8 }}
+          >
+            <Image
+              src={bearImages[1]}
+              alt="Bear decoration"
+              fill
+              className="object-contain drop-shadow-lg"
+              style={{ filter: 'drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2))' }}
+            />
+          </motion.div>
+        )}
+      </div>
+      
       <div className="absolute inset-0 w-full h-full">
         {imagesLoaded && backgroundImages.map((image, index) => (
           <div

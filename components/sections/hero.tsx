@@ -15,12 +15,10 @@ const desktopImages = [
 ]
 
 const mobileImages = [
-  "/mobile-background/couple (1).jpeg",
-  "/mobile-background/couple (2).jpeg",
-  "/mobile-background/couple (3).jpeg",
-  "/mobile-background/couple (5).jpeg",
-  "/mobile-background/couple (6).jpeg",
-  "/mobile-background/couple (7).jpeg",
+  "/mobile-background/celebrant (5).jpg",
+  "/mobile-background/celebrant (3).jpg",
+  "/mobile-background/celebrant (6).jpg",
+  "/mobile-background/celebrant (10).jpg",
 ]
 
 const SHOW_BUTTERFLIES = false
@@ -117,8 +115,16 @@ export function Hero() {
           />
         ))}
         
+        {/* Overlay for better text readability */}
+        <div 
+          className="absolute inset-0 z-[1] pointer-events-none"
+          style={{
+            background: 'linear-gradient(135deg, rgba(209, 230, 240, 0.4) 0%, rgba(254, 217, 213, 0.4) 100%)',
+          }}
+        />
+        
         {/* Fluffy mist/fog effect at the top - seamless blend */}
-        <div className="absolute inset-0 pointer-events-none z-0">
+        <div className="absolute inset-0 pointer-events-none z-[2]">
           {/* Main top mist - fluffy fog gradient with soft edges */}
           <div 
             className="absolute top-0 left-0 right-0 h-[45%]"
@@ -186,7 +192,7 @@ export function Hero() {
         </div>
 
         {/* Fluffy mist/fog effect at the bottom - seamless blend */}
-        <div className="absolute inset-0 pointer-events-none z-0">
+        <div className="absolute inset-0 pointer-events-none z-[2]">
           {/* Main bottom mist - fluffy fog gradient with soft edges */}
           <div 
             className="absolute bottom-0 left-0 right-0 h-[45%]"
@@ -254,19 +260,40 @@ export function Hero() {
         </div>
       </div>
 
-      {/* Top center text - Elegant light grey serif style */}
-      <div className="absolute top-0 left-0 right-0 z-10 flex flex-col items-center justify-center pt-8 sm:pt-12 md:pt-16 lg:pt-20">
+      {/* Top intro text */}
+      <div className="absolute top-0 left-0 right-0 z-[10] flex flex-col items-center justify-center pt-8 sm:pt-12 md:pt-16 lg:pt-20 px-4">
+        <p
+          className="text-[#4a5d4e] text-base sm:text-lg md:text-xl lg:text-2xl text-center max-w-2xl mx-auto leading-relaxed"
+          style={{
+            fontFamily: '"Cormorant Garamond", serif',
+            fontWeight: 400,
+            textShadow: "0 2px 8px rgba(0,0,0,0.3), 0 1px 4px rgba(0,0,0,0.2)",
+            letterSpacing: "0.02em",
+          }}
+        >
+          Let us come together in faith, love, and celebration
+          <br />
+          on this very special day.
+        </p>
+      </div>
+
+      {/* Bottom center text - Names, SAVE THE DATE, and Date */}
+      <div className="absolute bottom-0 left-0 right-0 z-[10] flex flex-col items-center justify-center pb-8 sm:pb-12 md:pb-16 lg:pb-20 px-4">
         <h1
-          className="style-script-regular text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-[#4a5d4e]"
+          className="style-script-regular text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-[#4a5d4e] text-center"
           style={{
             textShadow: "0 2px 8px rgba(0,0,0,0.3), 0 1px 4px rgba(0,0,0,0.2)",
             letterSpacing: "0.02em",
           }}
         >
-          {siteConfig.couple.groomNickname} & {siteConfig.couple.brideNickname}
+          Ransch Cristov
+          <br />
+          & 
+          <br />
+          Iszabella Rans
         </h1>
         <p
-          className="text-[#4a5d4e] text-base sm:text-lg md:text-xl lg:text-2xl mt-4 sm:mt-5 md:mt-6"
+          className="text-[#4a5d4e] text-base sm:text-lg md:text-xl lg:text-2xl mt-6 sm:mt-8 md:mt-10"
           style={{
             fontFamily: '"Cormorant Garamond", serif',
             fontWeight: 400,
@@ -285,7 +312,7 @@ export function Hero() {
             letterSpacing: "0.03em",
           }}
         >
-          {monthNumber} | {dayNumber} | {weddingYear}
+          January 10, 2026 9AM
         </p>
       </div>
 

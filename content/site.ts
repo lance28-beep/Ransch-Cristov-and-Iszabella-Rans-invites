@@ -6,9 +6,9 @@ export const siteConfig = {
     groomNickname: "Kenneth",
   },
   wedding: {
-    date: "January 28, 2026",
-    time: "9:30 AM",
-    venue: "St. Benedict Parish / Infinity Tagaytay Events Place",
+    date: "January 10, 2026",
+    time: "9:00 AM",
+    venue: "Our Lady of Lourdes Parish Church / McClare Resort",
     tagline: "are getting married!",
     theme: "Purple & Sage Motif",
     motif: "#6A4F82, #B9AACB, #A8AF8D, #F4F4F4, #5B6B3C",
@@ -19,18 +19,18 @@ export const siteConfig = {
     },
   },
   ceremony: {
-    location: "St. Benedict Parish, Ayala Westgrove, Silang, Cavite",
-    venue: "St. Benedict Parish",
-    date: "January 28, 2026",
-    day: "Wednesday",
-    time: "9:30 AM",
-    entourageTime: "8:30 AM",
-    guestsTime: "8:30 AM",
+    location: "Our Lady of Lourdes Parish Church - Silang Junction North, Tagaytay City",
+    venue: "Our Lady of Lourdes Parish Church",
+    date: "January 10, 2026",
+    day: "Saturday",
+    time: "9:00 AM",
+    entourageTime: "8:00 AM",
+    guestsTime: "8:00 AM",
   },
   reception: {
-    location: "Infinity Tagaytay Events Place, Lourdes St. Maitim 2nd Central, Tagaytay City, Cavite",
-    venue: "Infinity Tagaytay Events Place",
-    date: "January 28, 2026",
+    location: "McClare Resort Imus, Cavite",
+    venue: "McClare Resort",
+    date: "January 10, 2026",
     time: "Reception to follow",
   },
   dressCode: {
@@ -67,12 +67,12 @@ Without planning it, they fell in love. What started as two block mates became t
     secondary: "#B9AACB",
   },
   snapShare: {
-    googleDriveLink: "https://drive.google.com/drive/folders/1gFI7Q-1J85w2gwOQ-Ugkakeei2poqBM8?usp=sharing",
+    googleDriveLink: "https://drive.google.com/drive/folders/16b-2VJUznEKhimziZo8NjML0i7E0Fs19?usp=sharing",
     hashtags: [
-      "#UnKENditionalLoveWithMACY",
-      "#ALifetimeKENnectionWithMACY"
+      "#RanschCristovAndIszabellaRans",
+      "#CristovAndIszabellaBaptism"
     ],
-    instructions: "Please scan this QR Code, create a folder with your name and upload the photos and videos you have taken during our wedding reception. We are delighted to see your snaps too!",
+    instructions: "Please scan this QR Code, create a folder with your name and upload the photos and videos you have taken during Ransch Cristov and Iszabella's baptism celebration. We are delighted to see your snaps too!",
   },
 }
 

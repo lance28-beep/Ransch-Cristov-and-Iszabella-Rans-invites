@@ -6,6 +6,9 @@ import { siteConfig } from "@/content/site"
 import { Loader2, Users } from "lucide-react"
 import { Cormorant_Garamond } from "next/font/google"
 import { TornPaperEdge } from "@/components/torn-paper-edge"
+import Image from "next/image"
+import { motion } from "motion/react"
+import { getRandomBearImages } from "@/lib/bear-utils"
 
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
@@ -44,6 +47,12 @@ export function Entourage() {
   const [error, setError] = useState<string | null>(null)
   const [isVisible, setIsVisible] = useState(false)
   const sectionRef = useRef<HTMLDivElement>(null)
+  const [bearImages, setBearImages] = useState<string[]>([])
+  
+  // Initialize bear images on client side only to avoid hydration mismatch
+  useEffect(() => {
+    setBearImages(getRandomBearImages(2))
+  }, [])
 
   const fetchEntourage = async () => {
     setIsLoading(true)
@@ -240,6 +249,42 @@ export function Entourage() {
       >
         {/* Torn paper edge at top */}
         <TornPaperEdge position="top" />
+        
+        {/* Bear decorations */}
+        <div className="absolute inset-0 z-[5] pointer-events-none overflow-hidden">
+          {bearImages[0] && (
+            <motion.div
+              className="absolute top-[10%] right-[3%] w-10 h-10 sm:w-14 sm:h-14 md:w-18 md:h-18 opacity-50"
+              initial={{ opacity: 0, scale: 0.8, rotate: -8 }}
+              whileInView={{ opacity: 0.5, scale: 1, rotate: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.3, duration: 0.6 }}
+            >
+              <Image
+                src={bearImages[0]}
+                alt="Bear decoration"
+                fill
+                className="object-contain drop-shadow-lg"
+              />
+            </motion.div>
+          )}
+          {bearImages[1] && (
+            <motion.div
+              className="absolute bottom-[12%] left-[3%] w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 opacity-50"
+              initial={{ opacity: 0, scale: 0.8, rotate: 8 }}
+              whileInView={{ opacity: 0.5, scale: 1, rotate: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.5, duration: 0.6 }}
+            >
+              <Image
+                src={bearImages[1]}
+                alt="Bear decoration"
+                fill
+                className="object-contain drop-shadow-lg"
+              />
+            </motion.div>
+          )}
+        </div>
         
         {/* Paper texture background */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden">

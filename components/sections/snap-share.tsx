@@ -8,6 +8,8 @@ import { QRCodeCanvas } from "qrcode.react"
 import { siteConfig } from "@/content/site"
 import { Cormorant_Garamond } from "next/font/google"
 import { TornPaperEdge } from "@/components/torn-paper-edge"
+import { motion } from "motion/react"
+import { getRandomBearImages } from "@/lib/bear-utils"
 
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
@@ -19,20 +21,24 @@ export function SnapShare() {
   const [copiedAllHashtags, setCopiedAllHashtags] = useState(false)
   const [copiedDriveLink, setCopiedDriveLink] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
+  const [bearImages, setBearImages] = useState<string[]>([])
+  
+  // Initialize bear images on client side only to avoid hydration mismatch
+  useEffect(() => {
+    setBearImages(getRandomBearImages(2))
+  }, [])
 
   const websiteUrl = typeof window !== "undefined" ? window.location.href : "https://example.com"
-  const driveLink = siteConfig.snapShare?.googleDriveLink || "https://drive.google.com/drive/folders/1kOrf64ay6vx0pIeIjavvWp31B8nFWowQ?usp=sharing"
+  const driveLink = siteConfig.snapShare?.googleDriveLink || "https://drive.google.com/drive/folders/16b-2VJUznEKhimziZo8NjML0i7E0Fs19?usp=sharing"
   const hashtags = siteConfig.snapShare?.hashtags || [
-    "#UnKENditionalLoveWithMACY",
-    "#ALifetimeKENnectionWithMACY"
+    "#RanschCristovAndIszabellaRans",
+    "#CristovAndIszabellaBaptism"
   ]
   const allHashtagsText = hashtags.join(" ")
-  const groomNickname = siteConfig.couple.groomNickname
-  const brideNickname = siteConfig.couple.brideNickname
-  const sanitizedGroomName = groomNickname.replace(/\s+/g, "")
-  const sanitizedBrideName = brideNickname.replace(/\s+/g, "")
+  const childrenNames = "Ransch Cristov & Iszabella Rans"
+  const sanitizedNames = "ransch-cristov-iszabella-rans"
 
-  const shareText = `Celebrate ${groomNickname} & ${brideNickname}'s wedding! Explore the details and share your special memories: ${websiteUrl} ${allHashtagsText} ✨`
+  const shareText = `Celebrate Ransch Cristov & Iszabella Rans's baptism! Explore the details and share your special memories: ${websiteUrl} ${allHashtagsText} ✨`
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 640)
@@ -67,7 +73,7 @@ export function SnapShare() {
     const canvas = document.getElementById("snapshare-qr") as HTMLCanvasElement | null
     if (!canvas) return
     const link = document.createElement("a")
-    link.download = `${sanitizedGroomName.toLowerCase()}-${sanitizedBrideName.toLowerCase()}-wedding-qr.png`
+    link.download = `${sanitizedNames}-baptism-qr.png`
     link.href = canvas.toDataURL("image/png")
     link.click()
   }
@@ -116,21 +122,80 @@ export function SnapShare() {
   return (
     <Section
       id="snap-share"
-      className="relative overflow-hidden py-12 sm:py-16 md:py-20 lg:py-24 bg-[#FAF9F5]"
+      className="relative overflow-hidden py-12 sm:py-16 md:py-20 lg:py-24"
     >
+      {/* Paper texture base - matching Narrative section */}
+      <div className="absolute inset-0 z-0">
+        {/* Base paper color - pastel gradient */}
+        <div 
+          className="absolute inset-0" 
+          style={{
+            background: 'linear-gradient(135deg, #D1E6F0 0%, #FED9D5 100%)'
+          }}
+        />
+        
+        {/* Paper texture overlay */}
+        <div 
+          className="absolute inset-0 opacity-30"
+          style={{
+            backgroundImage: `
+              repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(163, 141, 120, 0.03) 2px, rgba(163, 141, 120, 0.03) 4px),
+              repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(163, 141, 120, 0.03) 2px, rgba(163, 141, 120, 0.03) 4px),
+              radial-gradient(circle at 20% 30%, rgba(203, 185, 163, 0.1) 0%, transparent 50%),
+              radial-gradient(circle at 80% 70%, rgba(163, 141, 120, 0.08) 0%, transparent 50%),
+              linear-gradient(135deg, rgba(244, 241, 234, 0.5) 0%, rgba(245, 245, 245, 0.3) 50%, rgba(250, 249, 245, 0.5) 100%)
+            `,
+            backgroundSize: '100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%'
+          }}
+        />
+        
+        {/* Subtle paper grain texture */}
+        <div 
+          className="absolute inset-0 opacity-20"
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.4'/%3E%3C/svg%3E")`,
+            backgroundSize: '200px 200px'
+          }}
+        />
+      </div>
+
       {/* Torn paper edge at top */}
       <TornPaperEdge position="top" />
       
-      {/* Paper texture background */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        {/* Subtle paper texture effect */}
-        <div className="absolute inset-0 opacity-[0.03]" style={{
-          backgroundImage: `repeating-linear-gradient(0deg, transparent, transparent 2px, #4a5d4e 2px, #4a5d4e 4px),
-                          repeating-linear-gradient(90deg, transparent, transparent 2px, #4a5d4e 2px, #4a5d4e 4px)`,
-        }} />
-        {/* Soft sage green accents */}
-        <div className="absolute top-0 left-0 w-full h-1/3 bg-gradient-to-b from-[#4a5d4e]/5 via-transparent to-transparent" />
-        <div className="absolute bottom-0 left-0 w-full h-1/3 bg-gradient-to-t from-[#4a5d4e]/5 via-transparent to-transparent" />
+      {/* Bear decorations */}
+      <div className="absolute inset-0 z-[5] pointer-events-none overflow-hidden">
+        {bearImages[0] && (
+          <motion.div
+            className="absolute top-[12%] left-[3%] w-11 h-11 sm:w-15 sm:h-15 md:w-19 md:h-19 opacity-50"
+            initial={{ opacity: 0, scale: 0.8, rotate: -10 }}
+            whileInView={{ opacity: 0.5, scale: 1, rotate: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2, duration: 0.6 }}
+          >
+            <Image
+              src={bearImages[0]}
+              alt="Bear decoration"
+              fill
+              className="object-contain drop-shadow-lg"
+            />
+          </motion.div>
+        )}
+        {bearImages[1] && (
+          <motion.div
+            className="absolute bottom-[15%] right-[3%] w-13 h-13 sm:w-17 sm:h-17 md:w-21 md:h-21 opacity-50"
+            initial={{ opacity: 0, scale: 0.8, rotate: 10 }}
+            whileInView={{ opacity: 0.5, scale: 1, rotate: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.4, duration: 0.6 }}
+          >
+            <Image
+              src={bearImages[1]}
+              alt="Bear decoration"
+              fill
+              className="object-contain drop-shadow-lg"
+            />
+          </motion.div>
+        )}
       </div>
 
       <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 md:px-8">
@@ -152,7 +217,7 @@ export function SnapShare() {
               textShadow: "0 2px 8px rgba(0,0,0,0.08), 0 1px 4px rgba(0,0,0,0.06)"
             }}
           >
-            Capture the beautiful moments of {groomNickname} & {brideNickname}'s wedding day. Share your favorite memories so our keepsake gallery glows with every smile, embrace, and celebration from this special day.
+            Capture the beautiful moments of Ransch Cristov & Iszabella Rans's baptism celebration. Share your favorite memories so our keepsake gallery glows with every smile, embrace, and celebration from this special day.
           </p>
         </div>
 
@@ -168,13 +233,13 @@ export function SnapShare() {
               </h3>
               <div className="grid grid-cols-2 gap-3 sm:gap-4">
                 <div className="relative aspect-square rounded-lg overflow-hidden shadow-md border border-[#4a5d4e]/20 hover:border-[#4a5d4e]/40 transition-all">
-                  <Image src="/desktop-background/couple (5).jpeg" alt="Wedding moment 1" fill className="object-cover" />
+                  <Image src="/mobile-background/celebrant (6).jpg" alt="Wedding moment 1" fill className="object-cover" />
                 </div>
                 <div className="relative aspect-square rounded-lg overflow-hidden shadow-md border border-[#4a5d4e]/20 hover:border-[#4a5d4e]/40 transition-all">
-                  <Image src="/desktop-background/couple (6).jpeg" alt="Wedding moment 2" fill className="object-cover" />
+                  <Image src="/mobile-background/celebrant (10).jpg" alt="Wedding moment 2" fill className="object-cover" />
                 </div>
                 <div className="relative col-span-2 aspect-[3/2] rounded-lg overflow-hidden shadow-md border border-[#4a5d4e]/20 hover:border-[#4a5d4e]/40 transition-all">
-                  <Image src="/desktop-background/couple (1).jpeg" alt="Wedding moment 3" fill className="object-cover" />
+                  <Image src="/mobile-background/celebrant (3).jpg" alt="Wedding moment 3" fill className="object-cover" />
                 </div>
               </div>
               <p 
@@ -197,7 +262,7 @@ export function SnapShare() {
                   className={`${cormorant.className} text-xl sm:text-2xl md:text-3xl text-[#4a5d4e] mb-3 sm:mb-4 font-light`}
                   style={{ textShadow: "0 2px 8px rgba(0,0,0,0.1), 0 1px 4px rgba(0,0,0,0.08)" }}
                 >
-                  Share Our Wedding Website
+                  Share Our Celebration Website
                 </h3>
                 <p 
                   className={`${cormorant.className} text-[#4a5d4e]/85 text-sm sm:text-base mb-4 sm:mb-6 leading-relaxed font-light`}
@@ -206,7 +271,7 @@ export function SnapShare() {
                     textShadow: "0 2px 8px rgba(0,0,0,0.08), 0 1px 4px rgba(0,0,0,0.06)"
                   }}
                 >
-                  Spread the word about {groomNickname} & {brideNickname}'s wedding celebration. Share this QR code with friends and family so they can join the celebration.
+                  Spread the word about Ransch Cristov & Iszabella Rans's baptism celebration. Share this QR code with friends and family so they can join the celebration.
                 </p>
                 <div className="mx-auto inline-flex flex-col items-center bg-white p-4 sm:p-6 rounded-lg shadow-sm border border-[#4a5d4e]/30 mb-4 sm:mb-6">
                   <div className="mb-3 p-3 rounded-lg bg-white border border-[#4a5d4e]/30">
@@ -256,7 +321,7 @@ export function SnapShare() {
                     textShadow: "0 2px 8px rgba(0,0,0,0.08), 0 1px 4px rgba(0,0,0,0.06)"
                   }}
                 >
-                  Tag your photos and posts with our wedding hashtags to join the celebration!
+                  Tag your photos and posts with our baptism hashtags to join the celebration!
                 </p>
                 
                 <div className="space-y-2 mb-3">
@@ -329,7 +394,7 @@ export function SnapShare() {
                     textShadow: "0 2px 8px rgba(0,0,0,0.08), 0 1px 4px rgba(0,0,0,0.06)"
                   }}
                 >
-                  Help spread the word about {groomNickname} & {brideNickname}'s wedding celebration. Share the event across your favorite platforms.
+                  Help spread the word about Ransch Cristov & Iszabella Rans's baptism celebration. Share the event across your favorite platforms.
                 </p>
                 <div className="grid grid-cols-2 gap-3">
                   <button
@@ -387,7 +452,7 @@ export function SnapShare() {
                     <div className="mb-3 p-3 rounded-lg bg-white border border-[#4a5d4e]/30">
                       <QRCodeCanvas 
                         id="drive-qr" 
-                        value={driveLink || "https://drive.google.com/drive/folders/1kOrf64ay6vx0pIeIjavvWp31B8nFWowQ?usp=sharing"} 
+                        value={driveLink || "https://drive.google.com/drive/folders/16b-2VJUznEKhimziZo8NjML0i7E0Fs19?usp=sharing"} 
                         size={isMobile ? 130 : 180} 
                         includeMargin 
                         className="bg-white" 
@@ -424,7 +489,7 @@ export function SnapShare() {
                       <span>Download QR</span>
                     </button>
                     <a
-                      href={driveLink || "https://drive.google.com/drive/folders/1kOrf64ay6vx0pIeIjavvWp31B8nFWowQ?usp=sharing"}
+                      href={driveLink || "https://drive.google.com/drive/folders/16b-2VJUznEKhimziZo8NjML0i7E0Fs19?usp=sharing"}
                       target="_blank"
                       rel="noopener noreferrer"
                       className={`${cormorant.className} flex items-center justify-center gap-2 px-4 py-2 rounded-sm border border-[#4a5d4e]/30 text-[#4a5d4e] hover:bg-[#4a5d4e]/5 hover:border-[#4a5d4e]/40 transition-colors text-xs sm:text-sm font-semibold shadow-sm`}
@@ -458,8 +523,8 @@ export function SnapShare() {
                 textShadow: "0 2px 8px rgba(0,0,0,0.08), 0 1px 4px rgba(0,0,0,0.06)"
               }}
             >
-              Thank you for helping make {groomNickname} & {brideNickname}'s wedding celebration memorable. Your photos and messages create beautiful memories
-              that will last a lifetime—keep sharing the joy throughout the evening.
+              Thank you for helping make Ransch Cristov & Iszabella Rans's baptism celebration memorable. Your photos and messages create beautiful memories
+              that will last a lifetime—keep sharing the joy throughout the celebration.
             </p>
             <div 
               className={`${cormorant.className} text-[#4a5d4e] text-xs sm:text-sm font-light`}

@@ -1,11 +1,14 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { ChevronDown } from "lucide-react"
 import { Section } from "@/components/section"
 import { Cormorant_Garamond } from "next/font/google"
 import { siteConfig } from "@/content/site"
 import { TornPaperEdge } from "@/components/torn-paper-edge"
+import Image from "next/image"
+import { motion } from "motion/react"
+import { getRandomBearImages } from "@/lib/bear-utils"
 
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
@@ -19,24 +22,24 @@ interface FAQItem {
 
 const faqItems: FAQItem[] = [
   {
-    question: "When is the wedding?",
+    question: "When is the baptism?",
     answer:
-      `Our wedding will be held on ${siteConfig.ceremony.date} (${siteConfig.ceremony.day}) at ${siteConfig.ceremony.time}. We kindly ask guests to arrive by ${siteConfig.ceremony.guestsTime} to help us begin promptly.`,
+      `Ransch Cristov and Iszabella Rans's baptism will be held on ${siteConfig.ceremony.date} (${siteConfig.ceremony.day}) at ${siteConfig.ceremony.time}. We kindly ask guests to arrive by ${siteConfig.ceremony.guestsTime} to help us begin promptly.`,
   },
   {
-    question: "Where will the ceremony and reception take place?",
+    question: "Where will the baptism and reception take place?",
     answer:
-      `The ceremony will be held at ${siteConfig.ceremony.location}. The reception will follow at ${siteConfig.reception.location}. You can find detailed directions, addresses, and maps in the Details section above.`,
+      `The baptism ceremony will be held at ${siteConfig.ceremony.location}. The reception will follow at ${siteConfig.reception.location}. You can find detailed directions, addresses, and maps in the Details section above.`,
   },
   {
     question: "What time should I arrive?",
     answer:
-      `Kindly arrive by ${siteConfig.ceremony.guestsTime} so we can begin the ceremony promptly at exactly ${siteConfig.ceremony.time}. The entourage will arrive at ${siteConfig.ceremony.entourageTime}. Your punctuality means so much to us!`,
+      `Kindly arrive by ${siteConfig.ceremony.guestsTime} so we can begin the baptism ceremony promptly at exactly ${siteConfig.ceremony.time}. The entourage will arrive at ${siteConfig.ceremony.entourageTime}. Your punctuality means so much to us!`,
   },
   {
     question: "How do I RSVP?",
     answer:
-      `Please RSVP on or before ${siteConfig.details.rsvp.deadline} through the RSVP section on this invitation. Simply search for your name in the guest list, confirm your attendance, and let us know if you'll be bringing companions. We kindly ask for your response to help us prepare for the big day.`,
+      `Please RSVP on or before ${siteConfig.details.rsvp.deadline} through the RSVP section on this invitation. Simply search for your name in the guest list, confirm your attendance, and let us know if you'll be bringing companions. We kindly ask for your response to help us prepare for this special day.`,
   },
   {
     question: "Can I bring a plus one or additional guests?",
@@ -61,17 +64,17 @@ const faqItems: FAQItem[] = [
   {
     question: "What should I give as a gift?",
     answer:
-      "With all that we have, we are truly blessed. Your presence and prayers are what we request most. However, if you desire to give nonetheless, a monetary gift to help us begin our new life together would be humbly appreciated. You can find our gift registry information in the Gift Guide section.",
+      "Your presence and prayers are what we request most. However, if you desire to give a gift to Ransch Cristov and Iszabella, your thoughtful gesture would be humbly appreciated. You can find our gift registry information in the Gift Guide section if available.",
   },
   {
     question: "Can I take photos and videos during the ceremony?",
     answer:
-      "We have a professional photographer and videographer capturing our special moments. We kindly ask that you keep your phones on silent and refrain from taking photos during the ceremony. However, we'd love to see your photos and videos from the reception! Please check the Snap & Share section for details on how to upload them.",
+      "We have a professional photographer and videographer capturing our special moments. We kindly ask that you keep your phones on silent and refrain from taking photos during the baptism ceremony. However, we'd love to see your photos and videos from the reception! Please check the Snap & Share section for details on how to upload them.",
   },
   {
-    question: "Where can I access wedding photos and resources?",
+    question: "Where can I access baptism photos and resources?",
     answer:
-      "You can access all our wedding photos, videos, and other resources through our [DRIVE_LINK]Google Drive folder[/DRIVE_LINK]. Feel free to download and share your favorite memories!",
+      "You can access all our baptism photos, videos, and other resources through our [DRIVE_LINK]Google Drive folder[/DRIVE_LINK]. Feel free to download and share your favorite memories!",
   },
   {
     question: "What if I have dietary restrictions or allergies?",
@@ -79,14 +82,20 @@ const faqItems: FAQItem[] = [
       "Please let us know about any dietary restrictions or allergies when you RSVP. We want to ensure everyone can enjoy the celebration comfortably.",
   },
   {
-    question: "Will the wedding be indoors or outdoors?",
+    question: "Will the baptism be indoors or outdoors?",
     answer:
-      "Both the ceremony and reception will be held at covered venues, so we're prepared for any weather. However, we recommend checking the weather forecast and dressing accordingly.",
+      "Both the baptism ceremony and reception will be held at covered venues, so we're prepared for any weather. However, we recommend checking the weather forecast and dressing accordingly.",
   },
 ]
 
 export function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(null)
+  const [bearImages, setBearImages] = useState<string[]>([])
+  
+  // Initialize bear images on client side only to avoid hydration mismatch
+  useEffect(() => {
+    setBearImages(getRandomBearImages(2))
+  }, [])
 
   const toggleItem = (index: number) => {
     setOpenIndex(openIndex === index ? null : index)
@@ -95,20 +104,80 @@ export function FAQ() {
   return (
     <Section
       id="faq"
-      className="relative py-12 md:py-16 lg:py-20 overflow-hidden bg-[#FAF9F5]"
+      className="relative py-12 md:py-16 lg:py-20 overflow-hidden"
     >
+      {/* Paper texture base - matching Narrative section */}
+      <div className="absolute inset-0 z-0">
+        {/* Base paper color - pastel gradient */}
+        <div 
+          className="absolute inset-0" 
+          style={{
+            background: 'linear-gradient(135deg, #D1E6F0 0%, #FED9D5 100%)'
+          }}
+        />
+        
+        {/* Paper texture overlay */}
+        <div 
+          className="absolute inset-0 opacity-30"
+          style={{
+            backgroundImage: `
+              repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(163, 141, 120, 0.03) 2px, rgba(163, 141, 120, 0.03) 4px),
+              repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(163, 141, 120, 0.03) 2px, rgba(163, 141, 120, 0.03) 4px),
+              radial-gradient(circle at 20% 30%, rgba(203, 185, 163, 0.1) 0%, transparent 50%),
+              radial-gradient(circle at 80% 70%, rgba(163, 141, 120, 0.08) 0%, transparent 50%),
+              linear-gradient(135deg, rgba(244, 241, 234, 0.5) 0%, rgba(245, 245, 245, 0.3) 50%, rgba(250, 249, 245, 0.5) 100%)
+            `,
+            backgroundSize: '100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%'
+          }}
+        />
+        
+        {/* Subtle paper grain texture */}
+        <div 
+          className="absolute inset-0 opacity-20"
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.4'/%3E%3C/svg%3E")`,
+            backgroundSize: '200px 200px'
+          }}
+        />
+      </div>
+
       {/* Torn paper edge at top */}
       <TornPaperEdge position="top" />
       
-      {/* Paper texture background */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <div
-          className="absolute inset-0 opacity-[0.03]"
-          style={{
-            backgroundImage: `repeating-linear-gradient(0deg, transparent, transparent 2px, #4a5d4e 2px, #4a5d4e 4px),
-                            repeating-linear-gradient(90deg, transparent, transparent 2px, #4a5d4e 2px, #4a5d4e 4px)`,
-          }}
-        />
+      {/* Bear decorations */}
+      <div className="absolute inset-0 z-[5] pointer-events-none overflow-hidden">
+        {bearImages[0] && (
+          <motion.div
+            className="absolute top-[10%] right-[3%] w-10 h-10 sm:w-14 sm:h-14 md:w-18 md:h-18 opacity-50"
+            initial={{ opacity: 0, scale: 0.8, rotate: -8 }}
+            whileInView={{ opacity: 0.5, scale: 1, rotate: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2, duration: 0.6 }}
+          >
+            <Image
+              src={bearImages[0]}
+              alt="Bear decoration"
+              fill
+              className="object-contain drop-shadow-lg"
+            />
+          </motion.div>
+        )}
+        {bearImages[1] && (
+          <motion.div
+            className="absolute bottom-[12%] left-[3%] w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 opacity-50"
+            initial={{ opacity: 0, scale: 0.8, rotate: 8 }}
+            whileInView={{ opacity: 0.5, scale: 1, rotate: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.4, duration: 0.6 }}
+          >
+            <Image
+              src={bearImages[1]}
+              alt="Bear decoration"
+              fill
+              className="object-contain drop-shadow-lg"
+            />
+          </motion.div>
+        )}
       </div>
       
       {/* Torn paper edge at bottom */}
@@ -207,7 +276,7 @@ export function FAQ() {
                             <p className={`${cormorant.className} text-[#243127] font-medium leading-relaxed sm:leading-loose text-xs sm:text-sm md:text-base lg:text-lg whitespace-pre-line tracking-wide`} style={{ fontWeight: 300 }}>
                               {item.answer.split("[DRIVE_LINK]")[0]}
                               <a 
-                                href="https://drive.google.com/drive/folders/1kOrf64ay6vx0pIeIjavvWp31B8nFWowQ?usp=sharing"
+                                href={siteConfig.snapShare?.googleDriveLink || "https://drive.google.com/drive/folders/16b-2VJUznEKhimziZo8NjML0i7E0Fs19?usp=sharing"}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="text-[#4a5d4e] underline font-bold hover:text-[#4a5d4e]/80 transition-colors"

@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { Section } from "@/components/section"
 import { siteConfig } from "@/content/site"
 import { TornPaperEdge } from "@/components/torn-paper-edge"
@@ -8,6 +8,8 @@ import { Cormorant_Garamond } from "next/font/google"
 import { QRCodeSVG } from "qrcode.react"
 import { Navigation, Copy, Check } from "lucide-react"
 import Image from "next/image"
+import { motion } from "motion/react"
+import { getRandomBearImages } from "@/lib/bear-utils"
 
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
@@ -28,6 +30,12 @@ const attireColors = ["#E6D9F2", "#D4E6F1", "#FFE5E8", "#D4E6F1", "#FFE5E8"]
 
 export function Details() {
   const [copiedItems, setCopiedItems] = useState<Set<string>>(new Set())
+  const [bearImages, setBearImages] = useState<string[]>([])
+  
+  // Initialize bear images on client side only to avoid hydration mismatch
+  useEffect(() => {
+    setBearImages(getRandomBearImages(2))
+  }, [])
   const ceremonyLocation = siteConfig.ceremony.location
   const receptionLocation = siteConfig.reception.location
   const ceremonyMapsLink = `https://maps.google.com/?q=${encodeURIComponent(ceremonyLocation)}`
@@ -60,6 +68,43 @@ export function Details() {
     >
       {/* Torn paper edge at top */}
       <TornPaperEdge position="top" />
+      
+      {/* Bear decorations */}
+      <div className="absolute inset-0 z-[5] pointer-events-none overflow-hidden">
+        {bearImages[0] && (
+          <motion.div
+            className="absolute top-[12%] right-[4%] w-11 h-11 sm:w-15 sm:h-15 md:w-19 md:h-19 opacity-50"
+            initial={{ opacity: 0, scale: 0.8, rotate: -10 }}
+            whileInView={{ opacity: 0.5, scale: 1, rotate: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2, duration: 0.6 }}
+          >
+            <Image
+              src={bearImages[0]}
+              alt="Bear decoration"
+              fill
+              className="object-contain drop-shadow-lg"
+            />
+          </motion.div>
+        )}
+        {bearImages[1] && (
+          <motion.div
+            className="absolute bottom-[15%] left-[4%] w-13 h-13 sm:w-17 sm:h-17 md:w-21 md:h-21 opacity-50"
+            initial={{ opacity: 0, scale: 0.8, rotate: 10 }}
+            whileInView={{ opacity: 0.5, scale: 1, rotate: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.4, duration: 0.6 }}
+          >
+            <Image
+              src={bearImages[1]}
+              alt="Bear decoration"
+              fill
+              className="object-contain drop-shadow-lg"
+            />
+          </motion.div>
+        )}
+      </div>
+      
       {/* Simple paper texture background */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         {/* Subtle paper texture effect */}

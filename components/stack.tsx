@@ -1,7 +1,7 @@
 "use client"
 
 import { motion, useMotionValue, useTransform } from "motion/react"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 
 interface CardData {
   id: number
@@ -74,6 +74,28 @@ export default function Stack({
           { id: 7, img: "/Couple_img/couple_7.png" },
         ],
   )
+  
+  // Generate random rotations on client side only to avoid hydration mismatch
+  // Store rotations by card ID to maintain consistency when cards are reordered
+  const [randomRotations, setRandomRotations] = useState<Map<number, number>>(new Map())
+  
+  useEffect(() => {
+    if (randomRotation && cards.length > 0) {
+      const rotations = new Map<number, number>()
+      cards.forEach((card) => {
+        if (!rotations.has(card.id)) {
+          rotations.set(card.id, Math.random() * 10 - 5)
+        }
+      })
+      setRandomRotations(rotations)
+    } else {
+      const rotations = new Map<number, number>()
+      cards.forEach((card) => {
+        rotations.set(card.id, 0)
+      })
+      setRandomRotations(rotations)
+    }
+  }, [randomRotation, cards])
 
   const sendToBack = (id: number) => {
     setCards((prev) => {
@@ -95,7 +117,7 @@ export default function Stack({
       }}
     >
       {cards.map((card, index) => {
-        const randomRotate = randomRotation ? Math.random() * 10 - 5 : 0
+        const randomRotate = randomRotations.get(card.id) || 0
 
         return (
           <CardRotate key={card.id} onSendToBack={() => sendToBack(card.id)} sensitivity={sensitivity}>

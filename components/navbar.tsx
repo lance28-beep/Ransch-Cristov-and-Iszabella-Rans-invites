@@ -79,16 +79,21 @@ export function Navbar() {
     <nav
       className={`sticky top-0 z-50 transition-all duration-700 ease-out ${
         isScrolled
-          ? "bg-[#FAF9F5]/96 backdrop-blur-xl shadow-[0_10px_40px_rgba(163,141,120,0.15)] border-b border-[#CBB9A3]/50"
-          : "bg-[#FAF9F5]/92 backdrop-blur-lg border-b border-[#CBB9A3]/40"
+          ? "backdrop-blur-xl shadow-[0_10px_40px_rgba(163,141,120,0.15)] border-b border-[#CBB9A3]/50"
+          : "backdrop-blur-lg border-b border-[#CBB9A3]/40"
       }`}
+      style={{
+        background: isScrolled 
+          ? 'linear-gradient(135deg, rgba(209, 230, 240, 0.96) 0%, rgba(254, 217, 213, 0.96) 100%)'
+          : 'linear-gradient(135deg, rgba(209, 230, 240, 0.92) 0%, rgba(254, 217, 213, 0.92) 100%)'
+      }}
     >
       {/* Elegant glow effect when scrolled */}
       {isScrolled && (
-        <div className="absolute inset-0 bg-gradient-to-r from-[#CBB9A3]/20 via-[#F4F1EA]/10 to-[#CBB9A3]/20 pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#D1E6F0]/20 via-[#FED9D5]/10 to-[#D1E6F0]/20 pointer-events-none" />
       )}
       {/* Subtle texture overlay for depth */}
-      <div className="absolute inset-0 bg-gradient-to-b from-white/5 via-transparent to-[#CBB9A3]/8 pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-b from-white/5 via-transparent to-[#FED9D5]/8 pointer-events-none" />
       
       <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8 relative">
         <div className="flex justify-between items-center h-14 sm:h-16 md:h-20">
@@ -102,9 +107,10 @@ export function Navbar() {
                   fontSize: '20px',
                   lineHeight: '28px',
                   color: 'rgb(74, 93, 78)',
+                  textShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
                 }}
               >
-                K | M
+                R | I
               </div>
             </div>
             

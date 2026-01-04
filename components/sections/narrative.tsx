@@ -1,10 +1,13 @@
 "use client"
 
 import { Section } from "@/components/section"
-import { siteConfig } from "@/content/site"
-import Stack from "@/components/stack"
 import { motion } from "motion/react"
 import { Cormorant_Garamond } from "next/font/google"
+import Image from "next/image"
+import { useState, useEffect } from "react"
+import { getRandomBearImages } from "@/lib/bear-utils"
+import { TornPaperEdge } from "@/components/torn-paper-edge"
+import Stack from "@/components/stack"
 
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
@@ -12,94 +15,262 @@ const cormorant = Cormorant_Garamond({
 })
 
 export function Narrative() {
-  const storyParagraphs =
-    siteConfig.narratives?.groom
-      ?.trim()
-      .split(/\n\s*\n/)
-      .filter(Boolean) ?? []
+  const [bearImages, setBearImages] = useState<string[]>([])
+  
+  // Initialize bear images on client side only to avoid hydration mismatch
+  useEffect(() => {
+    setBearImages(getRandomBearImages(2))
+  }, [])
 
   return (
     <Section
       id="narrative"
-      className="relative py-12 md:py-16 lg:py-20 overflow-hidden bg-[#FAF9F5]"
+      className="relative py-20 sm:py-24 md:py-28 lg:py-32 overflow-hidden"
     >
-      {/* Background elements with sage green motif */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        {/* Vertical sage gradients to frame the story */}
-        <div className="absolute top-0 left-0 w-full h-1/3 bg-gradient-to-b from-[#4a5d4e]/8 via-[#4a5d4e]/5 to-transparent" />
-        <div className="absolute bottom-0 left-0 w-full h-1/3 bg-gradient-to-t from-[#4a5d4e]/8 via-[#4a5d4e]/5 to-transparent" />
-        {/* Soft radial light in sage green */}
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(74,93,78,0.08),transparent_55%)] opacity-60" />
-        {/* Subtle diagonal wash */}
-        <div className="absolute inset-0 bg-gradient-to-br from-[#4a5d4e]/5 via-transparent to-[#4a5d4e]/3 mix-blend-soft-light" />
+      {/* Paper texture base - matching Invitation section */}
+      <div className="absolute inset-0 z-0">
+        {/* Base paper color - pastel gradient */}
+        <div 
+          className="absolute inset-0" 
+          style={{
+            background: 'linear-gradient(135deg, #D1E6F0 0%, #FED9D5 100%)'
+          }}
+        />
+        
+        {/* Paper texture overlay */}
+        <div 
+          className="absolute inset-0 opacity-30"
+          style={{
+            backgroundImage: `
+              repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(163, 141, 120, 0.03) 2px, rgba(163, 141, 120, 0.03) 4px),
+              repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(163, 141, 120, 0.03) 2px, rgba(163, 141, 120, 0.03) 4px),
+              radial-gradient(circle at 20% 30%, rgba(203, 185, 163, 0.1) 0%, transparent 50%),
+              radial-gradient(circle at 80% 70%, rgba(163, 141, 120, 0.08) 0%, transparent 50%),
+              linear-gradient(135deg, rgba(244, 241, 234, 0.5) 0%, rgba(245, 245, 245, 0.3) 50%, rgba(250, 249, 245, 0.5) 100%)
+            `,
+            backgroundSize: '100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%'
+          }}
+        />
+        
+        {/* Subtle paper grain texture */}
+        <div 
+          className="absolute inset-0 opacity-20"
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.4'/%3E%3C/svg%3E")`,
+            backgroundSize: '200px 200px'
+          }}
+        />
       </div>
 
-      <div className="relative z-30 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Title */}
-        <motion.div 
-          className="text-center mb-8 md:mb-12"
-          initial={{ opacity: 0, y: -20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
-          <div className="space-y-3 sm:space-y-4 md:space-y-5">
-            <p
-              className={`${cormorant.className} text-xs sm:text-sm md:text-base uppercase tracking-[0.3em] text-[#4a5d4e] font-light`}
-              style={{ textShadow: "0 2px 8px rgba(0,0,0,0.1), 0 1px 4px rgba(0,0,0,0.08)" }}
-            >
-              Our Love Story
-            </p>
-            <h2
-              className="style-script-regular text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl text-[#4a5d4e]"
-              style={{ 
-                textShadow: "0 2px 8px rgba(0,0,0,0.3), 0 1px 4px rgba(0,0,0,0.2)",
-                letterSpacing: "0.02em"
-              }}
-            >
-              From Friends to Forever
-            </h2>
-            <p
-              className={`${cormorant.className} text-sm sm:text-base md:text-lg text-[#4a5d4e]/80 italic font-light max-w-2xl mx-auto`}
-              style={{ 
-                textShadow: "0 2px 8px rgba(0,0,0,0.08), 0 1px 4px rgba(0,0,0,0.06)",
-                letterSpacing: "0.02em"
-              }}
-            >
-              A beautiful journey that began with friendship and blossomed into a love story we&apos;re excited to share with you
-            </p>
+      {/* Torn paper edge at top */}
+      <TornPaperEdge position="top" />
 
-            {/* Decorative flourish */}
-            <div className="flex items-center justify-center gap-3 pt-1">
-              <div className="w-8 md:w-12 h-px bg-gradient-to-r from-transparent via-[#4a5d4e]/40 to-transparent" />
-              <motion.div
-                animate={{ scale: [1, 1.15, 1], rotate: [0, 8, -8, 0] }}
-                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-              >
-                <svg className="w-5 h-5 md:w-6 md:h-6 text-[#4a5d4e]/60" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
-                </svg>
-              </motion.div>
-              <div className="w-8 md:w-12 h-px bg-gradient-to-l from-transparent via-[#4a5d4e]/40 to-transparent" />
-            </div>
-          </div>
+      {/* Bear decorations */}
+      <div className="absolute inset-0 z-[5] pointer-events-none overflow-hidden">
+        {bearImages[0] && (
+          <motion.div
+            className="absolute top-[25%] right-[5%] w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 opacity-50"
+            initial={{ opacity: 0, scale: 0.8, rotate: -15 }}
+            animate={{ opacity: 0.5, scale: 1, rotate: 0 }}
+            transition={{ delay: 0.5, duration: 0.6 }}
+          >
+            <Image
+              src={bearImages[0]}
+              alt="Bear decoration"
+              fill
+              className="object-contain drop-shadow-lg"
+            />
+          </motion.div>
+        )}
+        {bearImages[1] && (
+          <motion.div
+            className="absolute bottom-[30%] left-[5%] w-14 h-14 sm:w-18 sm:h-18 md:w-22 md:h-22 opacity-50"
+            initial={{ opacity: 0, scale: 0.8, rotate: 15 }}
+            animate={{ opacity: 0.5, scale: 1, rotate: 0 }}
+            transition={{ delay: 0.7, duration: 0.6 }}
+          >
+            <Image
+              src={bearImages[1]}
+              alt="Bear decoration"
+              fill
+              className="object-contain drop-shadow-lg"
+            />
+          </motion.div>
+        )}
+        
+        {/* Background bear images */}
+        <motion.div
+          className="absolute top-[50%] left-[1%] w-16 h-16 sm:w-24 sm:h-24 md:w-32 md:h-32 opacity-25"
+          initial={{ opacity: 0, scale: 0.8, rotate: -8 }}
+          animate={{ opacity: 0.25, scale: 1, rotate: 0 }}
+          transition={{ delay: 0.8, duration: 0.6 }}
+        >
+          <Image
+            src="/Bear/bear (8).png"
+            alt="Bear background decoration"
+            fill
+            className="object-contain drop-shadow-lg"
+          />
         </motion.div>
-
-        {/* Main Content - Centered Layout */}
-        <motion.div 
-          className="grid grid-cols-1 lg:grid-cols-3 gap-8 md:gap-10 items-center lg:items-start"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.2 }}
+        <motion.div
+          className="absolute top-[70%] right-[1%] w-18 h-18 sm:w-26 sm:h-26 md:w-34 md:h-34 opacity-25"
+          initial={{ opacity: 0, scale: 0.8, rotate: 8 }}
+          animate={{ opacity: 0.25, scale: 1, rotate: 0 }}
+          transition={{ delay: 0.9, duration: 0.6 }}
         >
-          {/* Left Spacer */}
-          <div className="hidden lg:block"></div>
+          <Image
+            src="/Bear/bear (6).png"
+            alt="Bear background decoration"
+            fill
+            className="object-contain drop-shadow-lg"
+          />
+        </motion.div>
+        <motion.div
+          className="absolute top-[5%] right-[8%] w-14 h-14 sm:w-20 sm:h-20 md:w-28 md:h-28 opacity-25"
+          initial={{ opacity: 0, scale: 0.8, rotate: -12 }}
+          animate={{ opacity: 0.25, scale: 1, rotate: 0 }}
+          transition={{ delay: 1.0, duration: 0.6 }}
+        >
+          <Image
+            src="/Bear/bear (1).png"
+            alt="Bear background decoration"
+            fill
+            className="object-contain drop-shadow-lg"
+          />
+        </motion.div>
+        <motion.div
+          className="absolute bottom-[5%] left-[8%] w-16 h-16 sm:w-22 sm:h-22 md:w-30 md:h-30 opacity-25"
+          initial={{ opacity: 0, scale: 0.8, rotate: 12 }}
+          animate={{ opacity: 0.25, scale: 1, rotate: 0 }}
+          transition={{ delay: 1.1, duration: 0.6 }}
+        >
+          <Image
+            src="/Bear/bear (2).png"
+            alt="Bear background decoration"
+            fill
+            className="object-contain drop-shadow-lg"
+          />
+        </motion.div>
+        <motion.div
+          className="absolute top-[15%] left-[3%] w-15 h-15 sm:w-22 sm:h-22 md:w-30 md:h-30 opacity-25"
+          initial={{ opacity: 0, scale: 0.8, rotate: -5 }}
+          animate={{ opacity: 0.25, scale: 1, rotate: 0 }}
+          transition={{ delay: 1.2, duration: 0.6 }}
+        >
+          <Image
+            src="/Bear/bear (12).png"
+            alt="Bear background decoration"
+            fill
+            className="object-contain drop-shadow-lg"
+          />
+        </motion.div>
+        <motion.div
+          className="absolute bottom-[15%] right-[3%] w-17 h-17 sm:w-24 sm:h-24 md:w-32 md:h-32 opacity-25"
+          initial={{ opacity: 0, scale: 0.8, rotate: 5 }}
+          animate={{ opacity: 0.25, scale: 1, rotate: 0 }}
+          transition={{ delay: 1.3, duration: 0.6 }}
+        >
+          <Image
+            src="/Bear/bear (11).png"
+            alt="Bear background decoration"
+            fill
+            className="object-contain drop-shadow-lg"
+          />
+        </motion.div>
+        <motion.div
+          className="absolute top-[35%] right-[3%] w-15 h-15 sm:w-21 sm:h-21 md:w-29 md:h-29 opacity-25"
+          initial={{ opacity: 0, scale: 0.8, rotate: -7 }}
+          animate={{ opacity: 0.25, scale: 1, rotate: 0 }}
+          transition={{ delay: 1.4, duration: 0.6 }}
+        >
+          <Image
+            src="/Bear/bear (4).png"
+            alt="Bear background decoration"
+            fill
+            className="object-contain drop-shadow-lg"
+          />
+        </motion.div>
+        <motion.div
+          className="absolute bottom-[50%] left-[3%] w-16 h-16 sm:w-23 sm:h-23 md:w-31 md:h-31 opacity-25"
+          initial={{ opacity: 0, scale: 0.8, rotate: 7 }}
+          animate={{ opacity: 0.25, scale: 1, rotate: 0 }}
+          transition={{ delay: 1.5, duration: 0.6 }}
+        >
+          <Image
+            src="/Bear/bear (3).png"
+            alt="Bear background decoration"
+            fill
+            className="object-contain drop-shadow-lg"
+          />
+        </motion.div>
+      </div>
 
-          {/* Interactive Stack Component - Center */}
-          <div className="flex justify-center">
+      <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 md:px-8">
+        <motion.div
+          className="text-center space-y-8 sm:space-y-10 md:space-y-12"
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+        >
+          {/* Main Label */}
+          <motion.div
+            className="space-y-4 sm:space-y-6"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
+            <h2
+              className="style-script-regular text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-[#4a5d4e]"
+              style={{ 
+                letterSpacing: "0.02em",
+                textShadow: "0 2px 8px rgba(0,0,0,0.3), 0 1px 4px rgba(0,0,0,0.2)",
+              }}
+            >
+              A Celebration of Faith & First Milestones
+            </h2>
+          </motion.div>
+
+          {/* Sub-label */}
+          <motion.div
+            className="space-y-4 sm:space-y-6"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+          >
+            <p
+              className={`${cormorant.className} text-lg sm:text-xl md:text-2xl lg:text-3xl text-[#4a5d4e] font-light uppercase tracking-[0.15em]`}
+              style={{ 
+                letterSpacing: "0.15em",
+                textShadow: "0 2px 8px rgba(0,0,0,0.1), 0 1px 4px rgba(0,0,0,0.08)",
+              }}
+            >
+              Baptism and 1st Birthday
+            </p>
+          </motion.div>
+
+          {/* Decorative divider */}
+          <motion.div
+            className="flex items-center justify-center gap-3 sm:gap-4"
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+          >
+            <span className="h-px w-12 sm:w-20 md:w-24 bg-gradient-to-r from-transparent via-[#4a5d4e]/40 to-[#4a5d4e]/60" />
+            <span className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-[#4a5d4e]/30 border border-[#4a5d4e]/40" />
+            <span className="w-1.5 h-1.5 rounded-full bg-[#4a5d4e]/40" />
+            <span className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-[#4a5d4e]/30 border border-[#4a5d4e]/40" />
+            <span className="h-px w-12 sm:w-20 md:w-24 bg-gradient-to-l from-transparent via-[#4a5d4e]/40 to-[#4a5d4e]/60" />
+          </motion.div>
+
+          {/* Stack Image Component */}
+          <motion.div 
+            className="flex justify-center py-8 sm:py-10 md:py-12"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.45 }}
+          >
             <div className="relative">
-              {/* Enhanced glow effect with sage green motif */}
+              {/* Enhanced glow effect */}
               <div className="absolute inset-0 bg-gradient-to-br from-[#4a5d4e]/15 via-[#4a5d4e]/10 to-[#4a5d4e]/12 rounded-full blur-3xl -z-10 w-full h-full max-w-sm animate-pulse" />
               <div className="absolute inset-0 bg-gradient-to-tr from-[#4a5d4e]/12 via-transparent to-[#4a5d4e]/10 rounded-full blur-2xl -z-10 w-full h-full max-w-sm" />
               <div className="absolute inset-0 bg-gradient-to-bl from-[#4a5d4e]/10 via-transparent to-[#4a5d4e]/8 rounded-full blur-xl -z-10 w-full h-full max-w-sm" />
@@ -110,11 +281,16 @@ export function Narrative() {
                 sendToBackOnClick={false}
                 cardDimensions={{ width: 240, height: 280 }}
                 cardsData={[
-                  { id: 1, img: "/desktop-background/couple (2).jpeg" },
-                  { id: 2, img: "/desktop-background/couple (3).jpeg" },
-                  { id: 3, img: "/desktop-background/couple (5).jpeg" },
-                  { id: 4, img: "/desktop-background/couple (6).jpeg" },
-
+                  { id: 1, img: "/mobile-background/celebrant (1).jpg" },
+                  { id: 2, img: "/mobile-background/celebrant (2).jpg" },
+                  { id: 3, img: "/mobile-background/celebrant (10).jpg" },
+                  { id: 4, img: "/mobile-background/celebrant (4).jpg" },
+                  { id: 5, img: "/mobile-background/celebrant (5).jpg" },
+                  { id: 6, img: "/mobile-background/celebrant (6).jpg" },
+                  { id: 7, img: "/mobile-background/celebrant (7).jpg" },
+                  { id: 8, img: "/mobile-background/celebrant (8).jpg" },
+                  { id: 9, img: "/mobile-background/celebrant (9).jpg" },
+                  { id: 10, img: "/mobile-background/celebrant (3).jpg" }
                 ]}
                 animationConfig={{ stiffness: 260, damping: 20 }}
               />
@@ -122,251 +298,87 @@ export function Narrative() {
               <motion.p 
                 className={`${cormorant.className} text-center text-xs md:text-sm text-[#4a5d4e] mt-4 font-light tracking-wide`}
                 initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true }}
+                animate={{ opacity: 1 }}
                 transition={{ delay: 1 }}
                 style={{ textShadow: "0 2px 8px rgba(0,0,0,0.1), 0 1px 4px rgba(0,0,0,0.08)" }}
               >
                 <span className="text-[#4a5d4e]/70">✨</span> Drag to explore our moments <span className="text-[#4a5d4e]/70">✨</span>
               </motion.p>
             </div>
-          </div>
+          </motion.div>
 
-          {/* Right Spacer */}
-          <div className="hidden lg:block"></div>
-        </motion.div>
-
-        {/* Story Text */}
-        <motion.div 
-          className="mt-10 md:mt-16 max-w-4xl mx-auto"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-        >
-          <div className="space-y-4 md:space-y-6" aria-live="polite">
-            {storyParagraphs.map((paragraph, index) => (
-              <motion.div 
-                key={index} 
-                className="relative"
-                initial={{ opacity: 0, y: 15 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.5 + index * 0.1 }}
-              >
-                {/* First paragraph with drop cap */}
-                {index === 0 ? (
-                  <p className={`${cormorant.className} text-sm md:text-base lg:text-lg leading-relaxed text-[#4a5d4e] text-pretty font-light pl-3 md:pl-6`} style={{ textShadow: "0 2px 8px rgba(0,0,0,0.1), 0 1px 4px rgba(0,0,0,0.08)" }}>
-                    <span className={`${cormorant.className} float-left text-3xl md:text-5xl lg:text-6xl font-bold text-[#4a5d4e] leading-none mr-2 mt-1`} style={{ textShadow: "0 2px 8px rgba(0,0,0,0.2), 0 1px 4px rgba(0,0,0,0.15)" }}>
-                      {paragraph.charAt(0)}
-                    </span>
-                    {paragraph.slice(1)}
-                  </p>
-                ) : (
-                  <p className={`${cormorant.className} text-sm md:text-base lg:text-lg leading-relaxed text-[#4a5d4e] text-pretty font-light pl-3 md:pl-6`} style={{ textShadow: "0 2px 8px rgba(0,0,0,0.1), 0 1px 4px rgba(0,0,0,0.08)" }}>
-                    {paragraph}
-                  </p>
-                )}
-              </motion.div>
-            ))}
-          </div>
-
-          {/* Divider and CTA */}
-          <motion.div 
-            className="mt-10 md:mt-14 space-y-6 md:space-y-8"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.6 }}
+          {/* Narrative Text */}
+          <motion.div
+            className="max-w-[600px] mx-auto space-y-6 sm:space-y-8"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.5 }}
           >
-            {/* Decorative divider with sage green motif */}
-            <div className="flex items-center justify-center gap-4">
-              <div className="flex-1 h-px bg-gradient-to-r from-transparent via-[#4a5d4e]/40 to-[#4a5d4e]/30" />
-              <motion.div
-                animate={{
-                  rotate: [0, 360],
-                }}
-                transition={{
-                  duration: 20,
-                  repeat: Infinity,
-                  ease: "linear",
-                }}
-              >
-                <svg className="w-5 h-5 text-[#4a5d4e]/60" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-5c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3z"/>
-                </svg>
-              </motion.div>
-              <div className="flex-1 h-px bg-gradient-to-l from-transparent via-[#4a5d4e]/40 to-[#4a5d4e]/30" />
-            </div>
-
-            {/* Enhanced CTA Button with sage motif */}
-            <div className="flex justify-center">
-              <motion.a
-                href="#guest-list"
-                className={`${cormorant.className} group relative w-full sm:w-auto px-6 sm:px-10 md:px-12 py-4 sm:py-5 md:py-6 text-white font-medium text-sm sm:text-base md:text-lg rounded-[2rem] transition-all duration-500 text-center overflow-hidden shadow-xl hover:shadow-2xl border-2 border-[#4a5d4e]/30 hover:border-[#4a5d4e]/50`}
+            <div className="space-y-5 sm:space-y-6">
+              <p
+                className={`${cormorant.className} text-base sm:text-lg md:text-xl lg:text-2xl text-[#4a5d4e] leading-relaxed font-light text-center`}
                 style={{ 
-                  backgroundImage: "linear-gradient(135deg, #4a5d4e, #3d4d3f)",
-                  boxShadow: "0 10px 40px rgba(74,93,78,0.4), 0 4px 12px rgba(74,93,78,0.3)"
-                }}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                whileHover={{ scale: 1.05, y: -4 }}
-                whileTap={{ scale: 0.98 }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.backgroundImage = "linear-gradient(135deg, #3d4d3f, #4a5d4e)";
-                  e.currentTarget.style.boxShadow = "0 16px 55px rgba(74,93,78,0.5), 0 6px 18px rgba(74,93,78,0.4)";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.backgroundImage = "linear-gradient(135deg, #4a5d4e, #3d4d3f)";
-                  e.currentTarget.style.boxShadow = "0 10px 40px rgba(74,93,78,0.4), 0 4px 12px rgba(74,93,78,0.3)";
+                  letterSpacing: "0.02em",
+                  textShadow: "0 2px 8px rgba(0,0,0,0.1), 0 1px 4px rgba(0,0,0,0.08)",
+                  lineHeight: "1.8",
                 }}
               >
-                {/* Pulsing glow effect with sage accent */}
-                <motion.div 
-                  className="absolute inset-0 bg-[#4a5d4e]/40 rounded-[2rem] blur-2xl"
-                  animate={{
-                    opacity: [0.4, 0.7, 0.4],
-                    scale: [1, 1.1, 1],
-                  }}
-                  transition={{
-                    duration: 3,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                  }}
-                />
-                {/* Secondary glow */}
-                <motion.div 
-                  className="absolute inset-0 bg-[#4a5d4e]/20 rounded-[2rem] blur-xl"
-                  animate={{
-                    opacity: [0.2, 0.4, 0.2],
-                    scale: [1, 1.15, 1],
-                  }}
-                  transition={{
-                    duration: 4,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                    delay: 0.5,
-                  }}
-                />
-                
-                {/* Enhanced gradient overlay on hover */}
-                <div className="absolute inset-0 bg-gradient-to-br from-white/20 via-white/10 to-transparent rounded-[2rem] opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                
-                {/* Double shimmer effect */}
-                <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/25 to-transparent"></div>
-                <div className="absolute inset-0 translate-x-full group-hover:-translate-x-full transition-transform duration-1200 delay-200 bg-gradient-to-l from-transparent via-white/15 to-transparent"></div>
-                
-                {/* Enhanced sparkle effects */}
-                {[...Array(5)].map((_, i) => (
-                  <motion.div
-                    key={i}
-                    className="absolute opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                    style={{
-                      top: `${20 + i * 15}%`,
-                      left: `${10 + (i % 3) * 40}%`,
-                    }}
-                    animate={{
-                      scale: [0, 1.2, 1],
-                      rotate: [0, 180, 360],
-                    }}
-                    transition={{
-                      duration: 2,
-                      repeat: Infinity,
-                    delay: i * 0.28,
-                      ease: "easeInOut",
-                    }}
-                  >
-                    <svg className="w-3 h-3 text-white/70" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/>
-                    </svg>
-                  </motion.div>
-                ))}
-                
-                {/* Animated gradient border */}
-                <div className="absolute inset-0 rounded-[2rem] border-2 border-white/10 group-hover:border-white/30 transition-all duration-500"></div>
-                <motion.div 
-                  className="absolute inset-0 rounded-[2rem] border-2 border-white/20"
-                  animate={{
-                    opacity: [0.2, 0.5, 0.2],
-                  }}
-                  transition={{
-                    duration: 2,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                  }}
-                />
-                
-                {/* Decorative waves on hover */}
-                <motion.div
-                  className="absolute bottom-0 left-0 right-0 h-16 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                  initial={{ y: 0 }}
-                  animate={{
-                    y: [0, -5, 0],
-                  }}
-                  transition={{
-                    duration: 2,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                  }}
-                >
-                  <svg className="w-full h-full" fill="none" viewBox="0 0 400 100" preserveAspectRatio="none">
-                    <path d="M0,50 Q100,20 200,50 T400,50 L400,100 L0,100 Z" fill="white" opacity="0.1"/>
-                  </svg>
-                </motion.div>
-                
-                {/* Button content */}
-                <span className="relative z-10 tracking-wide uppercase inline-flex items-center gap-3 font-medium text-white">
-                  Join Our Celebration
-                  <motion.svg 
-                    className="w-5 h-5 md:w-6 md:h-6 text-white" 
-                    fill="none" 
-                    stroke="currentColor" 
-                    viewBox="0 0 24 24"
-                    animate={{
-                      x: [0, 4, 0],
-                    }}
-                    transition={{
-                      duration: 1.5,
-                      repeat: Infinity,
-                      ease: "easeInOut",
-                    }}
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                  </motion.svg>
-                </span>
-                
-                {/* Enhanced decorative corner ornaments */}
-                <motion.div 
-                  className="absolute top-2 left-2 w-2 h-2 bg-white/60 rounded-full opacity-0 group-hover:opacity-100"
-                  initial={{ scale: 0 }}
-                  whileHover={{ scale: [0, 1.5, 1] }}
-                  transition={{ duration: 0.5 }}
-                />
-                <motion.div 
-                  className="absolute top-2 right-2 w-2 h-2 bg-white/60 rounded-full opacity-0 group-hover:opacity-100"
-                  initial={{ scale: 0 }}
-                  whileHover={{ scale: [0, 1.5, 1] }}
-                  transition={{ duration: 0.5, delay: 0.1 }}
-                />
-                <motion.div 
-                  className="absolute bottom-2 left-2 w-2 h-2 bg-white/60 rounded-full opacity-0 group-hover:opacity-100"
-                  initial={{ scale: 0 }}
-                  whileHover={{ scale: [0, 1.5, 1] }}
-                  transition={{ duration: 0.5, delay: 0.2 }}
-                />
-                <motion.div 
-                  className="absolute bottom-2 right-2 w-2 h-2 bg-white/60 rounded-full opacity-0 group-hover:opacity-100"
-                  initial={{ scale: 0 }}
-                  whileHover={{ scale: [0, 1.5, 1] }}
-                  transition={{ duration: 0.5, delay: 0.3 }}
-                />
-              </motion.a>
+                With hearts full of gratitude and joy, we invite you to join us in celebrating two beautiful milestones in our family&apos;s journey. On this blessed day, we will witness the <strong className="font-semibold">Baptism of Ransch Cristov Penales and Iszabella Rans Penales</strong>, as they receive the sacrament that welcomes them into our faith community and marks the beginning of their spiritual journey.
+              </p>
+              
+              <p
+                className={`${cormorant.className} text-base sm:text-lg md:text-xl lg:text-2xl text-[#4a5d4e] leading-relaxed font-light text-center`}
+                style={{ 
+                  letterSpacing: "0.02em",
+                  textShadow: "0 2px 8px rgba(0,0,0,0.1), 0 1px 4px rgba(0,0,0,0.08)",
+                  lineHeight: "1.8",
+                }}
+              >
+                We also celebrate with immense love and pride the <strong className="font-semibold">1st Birthday of our dear Ransch Cristov Penales</strong>. This first year has been a precious gift, filled with countless moments of wonder, growth, and boundless love. Each day has brought new discoveries, sweet smiles, and the pure joy that only a child can bring to a family.
+              </p>
+              
+              <p
+                className={`${cormorant.className} text-base sm:text-lg md:text-xl lg:text-2xl text-[#4a5d4e] leading-relaxed font-light text-center`}
+                style={{ 
+                  letterSpacing: "0.02em",
+                  textShadow: "0 2px 8px rgba(0,0,0,0.1), 0 1px 4px rgba(0,0,0,0.08)",
+                  lineHeight: "1.8",
+                }}
+              >
+                These celebrations represent more than milestones—they are testaments to God&apos;s grace, the strength of family bonds, and the beautiful promise of new beginnings. As we gather together in faith, love, and celebration, we are reminded of the blessings that surround us and the hope that fills our hearts for the future.
+              </p>
+              
+              <p
+                className={`${cormorant.className} text-base sm:text-lg md:text-xl lg:text-2xl text-[#4a5d4e] leading-relaxed font-light text-center italic`}
+                style={{ 
+                  letterSpacing: "0.02em",
+                  textShadow: "0 2px 8px rgba(0,0,0,0.1), 0 1px 4px rgba(0,0,0,0.08)",
+                  lineHeight: "1.8",
+                }}
+              >
+                Your presence would make this day even more meaningful as we honor these precious moments together.
+              </p>
             </div>
           </motion.div>
-        </motion.div>
 
+          {/* Decorative divider */}
+          <motion.div
+            className="flex items-center justify-center gap-3 sm:gap-4 pt-6 sm:pt-8"
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6, delay: 0.7 }}
+          >
+            <span className="h-px w-12 sm:w-20 md:w-24 bg-gradient-to-r from-transparent via-[#4a5d4e]/40 to-[#4a5d4e]/60" />
+            <span className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-[#4a5d4e]/30 border border-[#4a5d4e]/40" />
+            <span className="w-1.5 h-1.5 rounded-full bg-[#4a5d4e]/40" />
+            <span className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-[#4a5d4e]/30 border border-[#4a5d4e]/40" />
+            <span className="h-px w-12 sm:w-20 md:w-24 bg-gradient-to-l from-transparent via-[#4a5d4e]/40 to-[#4a5d4e]/60" />
+          </motion.div>
+        </motion.div>
       </div>
+
+      {/* Torn paper edge at bottom */}
+      <TornPaperEdge position="bottom" />
     </Section>
   )
 }

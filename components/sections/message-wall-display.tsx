@@ -78,7 +78,7 @@ export default function MessageWallDisplay({ messages, loading }: MessageWallDis
           No Messages Yet
         </h3>
         <p className={`${cormorant.className} text-sm sm:text-base md:text-lg text-[#4a5d4e]/80 font-light max-w-md mx-auto leading-relaxed mb-4 sm:mb-5 md:mb-6`} style={{ fontWeight: 300 }}>
-          Be the first to share your heartfelt wishes for the happy couple!
+          Be the first to share your heartfelt wishes for Ransch Cristov and Iszabella!
         </p>
         <div className="mt-4 sm:mt-5 md:mt-6 flex justify-center">
           <div className="flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-1.5 sm:py-2 bg-white border border-[#4a5d4e]/30 rounded-sm shadow-sm">

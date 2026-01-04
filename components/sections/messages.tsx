@@ -2,6 +2,7 @@
 
 import { useRef, useState, useCallback, useEffect } from "react"
 import { MessageCircle, Heart, Sparkles, Send } from "lucide-react"
+import { motion } from "motion/react"
 import { Section } from "@/components/section"
 import { Card, CardContent } from "@/components/sections/ui/card"
 import { Input } from "@/components/sections/ui/input"
@@ -11,6 +12,8 @@ import { useToast } from "@/hooks/use-toast"
 import MessageWallDisplay from "./message-wall-display"
 import { Cormorant_Garamond } from "next/font/google"
 import { siteConfig } from "@/content/site"
+import Image from "next/image"
+import { getRandomBearImages } from "@/lib/bear-utils"
 
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
@@ -142,7 +145,7 @@ function MessageForm({ onSuccess, onMessageSent }: MessageFormProps) {
               Share Your Love
             </h3>
             <p className={`${cormorant.className} text-xs sm:text-sm md:text-base text-[#4a5d4e]/80 font-light`}>
-              Your words will be part of {coupleDisplayName}&apos;s keepsake for years to come.
+              Write a message that Ransch Cristov and Iszabella will enjoy reading as they grow older.
             </p>
           </div>
 
@@ -217,7 +220,7 @@ function MessageForm({ onSuccess, onMessageSent }: MessageFormProps) {
                   }}
                   onFocus={() => setFocusedField('message')}
                   onBlur={() => setFocusedField(null)}
-                  placeholder={`Write a heartfelt message for ${coupleDisplayName}... share your wishes, memories, or words of love that will be treasured forever 💕`}
+                  placeholder={`Write a heartfelt message for Ransch Cristov and Iszabella... share your wishes, prayers, or words of love that they will enjoy reading in the future 💕`}
                   className={`${cormorant.className} message-form-textarea w-full border border-[#4a5d4e]/30 rounded-sm min-h-[80px] sm:min-h-[100px] md:min-h-[120px] text-xs sm:text-sm md:text-base placeholder:italic placeholder:leading-relaxed transition-all duration-300 resize-none bg-white shadow-sm hover:shadow-md focus:shadow-md py-2 sm:py-3 md:py-4 px-3 sm:px-4 md:px-5 ${
                     focusedField === 'message' 
                       ? 'border-[#4a5d4e] focus:border-[#4a5d4e] focus:ring-2 focus:ring-[#4a5d4e]/20' 
@@ -280,6 +283,12 @@ export function Messages() {
 
   const [messages, setMessages] = useState<Message[]>([])
   const [loading, setLoading] = useState(false)
+  const [bearImages, setBearImages] = useState<string[]>([])
+  
+  // Initialize bear images on client side only to avoid hydration mismatch
+  useEffect(() => {
+    setBearImages(getRandomBearImages(2))
+  }, [])
 
   const fetchMessages = useCallback(() => {
     setLoading(true)
@@ -317,16 +326,77 @@ export function Messages() {
   return (
     <Section
       id="messages"
-      className="relative overflow-hidden bg-[#FAF9F5] py-12 sm:py-16 md:py-20 lg:py-24"
+      className="relative overflow-hidden py-12 sm:py-16 md:py-20 lg:py-24"
     >
-      {/* Simple paper texture background */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute inset-0 opacity-[0.03]" style={{
-          backgroundImage: `repeating-linear-gradient(0deg, transparent, transparent 2px, #4a5d4e 2px, #4a5d4e 4px),
-                          repeating-linear-gradient(90deg, transparent, transparent 2px, #4a5d4e 2px, #4a5d4e 4px)`,
-        }} />
-        <div className="absolute top-0 left-0 w-full h-1/3 bg-gradient-to-b from-[#4a5d4e]/5 via-transparent to-transparent" />
-        <div className="absolute bottom-0 left-0 w-full h-1/3 bg-gradient-to-t from-[#4a5d4e]/5 via-transparent to-transparent" />
+      {/* Paper texture base - matching Narrative section */}
+      <div className="absolute inset-0 z-0">
+        {/* Base paper color - pastel gradient */}
+        <div 
+          className="absolute inset-0" 
+          style={{
+            background: 'linear-gradient(135deg, #D1E6F0 0%, #FED9D5 100%)'
+          }}
+        />
+        
+        {/* Paper texture overlay */}
+        <div 
+          className="absolute inset-0 opacity-30"
+          style={{
+            backgroundImage: `
+              repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(163, 141, 120, 0.03) 2px, rgba(163, 141, 120, 0.03) 4px),
+              repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(163, 141, 120, 0.03) 2px, rgba(163, 141, 120, 0.03) 4px),
+              radial-gradient(circle at 20% 30%, rgba(203, 185, 163, 0.1) 0%, transparent 50%),
+              radial-gradient(circle at 80% 70%, rgba(163, 141, 120, 0.08) 0%, transparent 50%),
+              linear-gradient(135deg, rgba(244, 241, 234, 0.5) 0%, rgba(245, 245, 245, 0.3) 50%, rgba(250, 249, 245, 0.5) 100%)
+            `,
+            backgroundSize: '100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%'
+          }}
+        />
+        
+        {/* Subtle paper grain texture */}
+        <div 
+          className="absolute inset-0 opacity-20"
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.4'/%3E%3C/svg%3E")`,
+            backgroundSize: '200px 200px'
+          }}
+        />
+      </div>
+
+      {/* Bear decorations */}
+      <div className="absolute inset-0 z-[5] pointer-events-none overflow-hidden">
+        {bearImages[0] && (
+          <motion.div
+            className="absolute top-[18%] left-[3%] w-11 h-11 sm:w-15 sm:h-15 md:w-19 md:h-19 opacity-50"
+            initial={{ opacity: 0, scale: 0.8, rotate: -8 }}
+            whileInView={{ opacity: 0.5, scale: 1, rotate: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.3, duration: 0.6 }}
+          >
+            <Image
+              src={bearImages[0]}
+              alt="Bear decoration"
+              fill
+              className="object-contain drop-shadow-lg"
+            />
+          </motion.div>
+        )}
+        {bearImages[1] && (
+          <motion.div
+            className="absolute bottom-[22%] right-[3%] w-13 h-13 sm:w-17 sm:h-17 md:w-21 md:h-21 opacity-50"
+            initial={{ opacity: 0, scale: 0.8, rotate: 8 }}
+            whileInView={{ opacity: 0.5, scale: 1, rotate: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.5, duration: 0.6 }}
+          >
+            <Image
+              src={bearImages[1]}
+              alt="Bear decoration"
+              fill
+              className="object-contain drop-shadow-lg"
+            />
+          </motion.div>
+        )}
       </div>
 
       <div className="relative z-10 max-w-6xl mx-auto px-2 sm:px-4 md:px-6 lg:px-8">
@@ -352,7 +422,7 @@ export function Messages() {
                 textShadow: "0 2px 8px rgba(0,0,0,0.08), 0 1px 4px rgba(0,0,0,0.06)"
               }}
             >
-              Your heartfelt words and prayers will be treasured forever. Share your love, memories, and wishes for {coupleDisplayName} as they begin this beautiful journey together.
+              Leave a heartfelt message that Ransch Cristov and Iszabella will treasure and enjoy reading as they grow. Your words of love, prayers, and wishes will become a beautiful keepsake they can look back on for years to come.
             </p>
           </div>
 
@@ -392,7 +462,7 @@ export function Messages() {
               Messages from Loved Ones
             </h3>
             <p className={`${cormorant.className} text-sm sm:text-base md:text-lg text-[#4a5d4e]/80 font-light max-w-2xl mx-auto px-2 sm:px-4`}>
-              Read the beautiful messages shared by family and friends
+              Beautiful messages that Ransch Cristov and Iszabella will treasure and enjoy reading as they grow
             </p>
           </div>
           
