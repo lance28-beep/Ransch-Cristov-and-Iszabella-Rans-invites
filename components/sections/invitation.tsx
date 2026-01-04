@@ -29,10 +29,45 @@ const staggerChildren = {
 
 export function Invitation() {
   const [bearImages, setBearImages] = useState<string[]>([])
+  const [timeLeft, setTimeLeft] = useState({
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
+  })
   
   // Initialize bear images on client side only to avoid hydration mismatch
   useEffect(() => {
     setBearImages(getRandomBearImages(2))
+  }, [])
+
+  // Countdown timer - January 10, 2026 9AM
+  useEffect(() => {
+    const targetDate = new Date('2026-01-10T09:00:00').getTime()
+
+    const updateCountdown = () => {
+      const now = new Date().getTime()
+      const difference = targetDate - now
+
+      if (difference > 0) {
+        const days = Math.floor(difference / (1000 * 60 * 60 * 24))
+        const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
+        const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60))
+        const seconds = Math.floor((difference % (1000 * 60)) / 1000)
+
+        setTimeLeft({ days, hours, minutes, seconds })
+      } else {
+        setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 })
+      }
+    }
+
+    // Update immediately
+    updateCountdown()
+
+    // Update every second
+    const interval = setInterval(updateCountdown, 1000)
+
+    return () => clearInterval(interval)
   }, [])
   
   return (
@@ -458,6 +493,52 @@ export function Invitation() {
             </p>
           </motion.div>
 
+          {/* Countdown Timer */}
+          <motion.div className="space-y-4 sm:space-y-6" variants={fadeInUp}>
+            <div className="flex items-center justify-center gap-2 sm:gap-3 md:gap-4">
+              <div className="text-center">
+                <div className={`${cormorant.className} text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-[#4a5d4e] font-semibold`} style={{ textShadow: "0 2px 8px rgba(0,0,0,0.1), 0 1px 4px rgba(0,0,0,0.08)" }}>
+                  {String(timeLeft.days).padStart(2, '0')}
+                </div>
+                <div className={`${cormorant.className} text-xs sm:text-sm md:text-base text-[#4a5d4e]/70 font-light uppercase tracking-wider mt-1`}>
+                  Day
+                </div>
+              </div>
+              <div className={`${cormorant.className} text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-[#4a5d4e]/60 font-light`} style={{ textShadow: "0 2px 8px rgba(0,0,0,0.1), 0 1px 4px rgba(0,0,0,0.08)" }}>
+                :
+              </div>
+              <div className="text-center">
+                <div className={`${cormorant.className} text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-[#4a5d4e] font-semibold`} style={{ textShadow: "0 2px 8px rgba(0,0,0,0.1), 0 1px 4px rgba(0,0,0,0.08)" }}>
+                  {String(timeLeft.hours).padStart(2, '0')}
+                </div>
+                <div className={`${cormorant.className} text-xs sm:text-sm md:text-base text-[#4a5d4e]/70 font-light uppercase tracking-wider mt-1`}>
+                  Hour
+                </div>
+              </div>
+              <div className={`${cormorant.className} text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-[#4a5d4e]/60 font-light`} style={{ textShadow: "0 2px 8px rgba(0,0,0,0.1), 0 1px 4px rgba(0,0,0,0.08)" }}>
+                :
+              </div>
+              <div className="text-center">
+                <div className={`${cormorant.className} text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-[#4a5d4e] font-semibold`} style={{ textShadow: "0 2px 8px rgba(0,0,0,0.1), 0 1px 4px rgba(0,0,0,0.08)" }}>
+                  {String(timeLeft.minutes).padStart(2, '0')}
+                </div>
+                <div className={`${cormorant.className} text-xs sm:text-sm md:text-base text-[#4a5d4e]/70 font-light uppercase tracking-wider mt-1`}>
+                  Minutes
+                </div>
+              </div>
+              <div className={`${cormorant.className} text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-[#4a5d4e]/60 font-light`} style={{ textShadow: "0 2px 8px rgba(0,0,0,0.1), 0 1px 4px rgba(0,0,0,0.08)" }}>
+                :
+              </div>
+              <div className="text-center">
+                <div className={`${cormorant.className} text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-[#4a5d4e] font-semibold`} style={{ textShadow: "0 2px 8px rgba(0,0,0,0.1), 0 1px 4px rgba(0,0,0,0.08)" }}>
+                  {String(timeLeft.seconds).padStart(2, '0')}
+                </div>
+                <div className={`${cormorant.className} text-xs sm:text-sm md:text-base text-[#4a5d4e]/70 font-light uppercase tracking-wider mt-1`}>
+                  Seconds
+                </div>
+              </div>
+            </div>
+          </motion.div>
 
           {/* CTA Button - Matching hero section style */}
           <motion.div className="pt-8 sm:pt-10 md:pt-12" variants={fadeInUp}>

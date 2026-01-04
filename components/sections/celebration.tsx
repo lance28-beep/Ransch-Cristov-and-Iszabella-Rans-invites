@@ -6,21 +6,14 @@ import Image from "next/image"
 import { getRandomBearImages } from "@/lib/bear-utils"
 
 const desktopImages = [
-  "/desktop-background/couple (1).jpeg",
-  "/desktop-background/couple (2).jpeg",
-  "/desktop-background/couple (3).jpeg",
-  "/desktop-background/couple (4).jpeg",
-  "/desktop-background/couple (5).jpeg",
+
+  "/mobile-background/celebrant (5).jpg",
 
 ]
 
 const mobileImages = [
-  "/mobile-background/couple (1).jpeg",
-  "/mobile-background/couple (2).jpeg",
-  "/mobile-background/couple (3).jpeg",
-  "/mobile-background/couple (5).jpeg",
-  "/mobile-background/couple (6).jpeg",
-  "/mobile-background/couple (7).jpeg",
+  "/mobile-background/celebrant (5).jpg",
+
 ]
 
 const SHOW_BUTTERFLIES = false
@@ -107,7 +100,7 @@ export function Celebration() {
 
 
   return (
-    <section id="celebration" className="relative h-[60vh] sm:h-[70vh] md:h-[80vh] flex items-start justify-center overflow-hidden">
+    <section id="celebration" className="relative h-[80vh] sm:h-[90vh] md:h-[100vh] flex items-start justify-center overflow-hidden">
       {/* Bear decorations */}
       <div className="absolute inset-0 z-[5] pointer-events-none overflow-hidden">
         {bearImages[0] && (
@@ -346,7 +339,9 @@ export function Celebration() {
               opacity: 0.9,
             }}
           >
-            Join us for an unforgettable day of love, joy, and celebration
+            Let us come together in faith, love, and celebration
+            <br />
+            on this very special day.
           </p>
         </motion.div>
       </div>
