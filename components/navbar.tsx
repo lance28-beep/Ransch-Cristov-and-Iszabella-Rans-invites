@@ -6,16 +6,13 @@ import { siteConfig } from "@/content/site"
 import StaggeredMenu from "./StaggeredMenu"
 
 const navLinks = [
-  { href: "#home", label: "Home" },
-  { href: "#countdown", label: "Countdown" },
+  { href: "#home", label: "Main" },
   { href: "#gallery", label: "Gallery" },
-  { href: "#messages", label: "Messages" },
-  { href: "#details", label: "Details" },
-  { href: "#entourage", label: "Entourage" },
-  { href: "#sponsors", label: "Sponsors" },
+  { href: "#messages", label: "Message" },
   { href: "#guest-list", label: "RSVP" },
-  { href: "#registry", label: "Registry" },
   { href: "#faq", label: "FAQ" },
+  { href: "#snap-share", label: "SnapShare" },
+  { href: "#footer", label: "Footer" },
 ]
 
 export function Navbar() {

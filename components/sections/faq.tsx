@@ -22,9 +22,9 @@ interface FAQItem {
 
 const faqItems: FAQItem[] = [
   {
-    question: "When is the baptism?",
+    question: "When is the baptism and birthday celebration?",
     answer:
-      `Ransch Cristov and Iszabella Rans's baptism will be held on ${siteConfig.ceremony.date} (${siteConfig.ceremony.day}) at ${siteConfig.ceremony.time}. We kindly ask guests to arrive by ${siteConfig.ceremony.guestsTime} to help us begin promptly.`,
+      `Ransch Cristov and Iszabella Rans's baptism will be held on ${siteConfig.ceremony.date} (${siteConfig.ceremony.day}) at ${siteConfig.ceremony.time}. We are also celebrating the 1st Birthday of Ransch Cristov Penales. We kindly ask guests to arrive by ${siteConfig.ceremony.guestsTime} to help us begin promptly.`,
   },
   {
     question: "Where will the baptism and reception take place?",
@@ -34,27 +34,17 @@ const faqItems: FAQItem[] = [
   {
     question: "What time should I arrive?",
     answer:
-      `Kindly arrive by ${siteConfig.ceremony.guestsTime} so we can begin the baptism ceremony promptly at exactly ${siteConfig.ceremony.time}. The entourage will arrive at ${siteConfig.ceremony.entourageTime}. Your punctuality means so much to us!`,
+      `Kindly arrive by ${siteConfig.ceremony.guestsTime} so we can begin the baptism ceremony promptly at exactly ${siteConfig.ceremony.time}. Your punctuality means so much to us!`,
   },
   {
     question: "How do I RSVP?",
     answer:
-      `Please RSVP on or before ${siteConfig.details.rsvp.deadline} through the RSVP section on this invitation. Simply search for your name in the guest list, confirm your attendance, and let us know if you'll be bringing companions. We kindly ask for your response to help us prepare for this special day.`,
+      `Please RSVP on or before January 7, 2026 through the RSVP section on this invitation. Simply search for your name in the guest list, confirm your attendance, and let us know if you'll be bringing companions. We kindly ask for your response to help us prepare for this special day.`,
   },
   {
     question: "Can I bring a plus one or additional guests?",
     answer:
       "Each invitation includes a specific number of reserved seats. Please check your invitation details in the RSVP section. If you need to request additional seats, you can use the 'Request to Join' feature, and we'll do our best to accommodate based on availability.",
-  },
-  {
-    question: "Is there a dress code?",
-    answer:
-      `Yes! We kindly request our guests to dress in formal attire matching our Purple & Sage motif. Please see the Attire section in Details for specific guidelines:\n\nPrincipal Sponsors:\n• Male: ${siteConfig.dressCode.sponsors.male}\n• Female: ${siteConfig.dressCode.sponsors.female}\n\nGuests:\n• Gents: ${siteConfig.dressCode.guests.gents}\n• Ladies: ${siteConfig.dressCode.guests.ladies}`,
-  },
-  {
-    question: "Will there be assigned seating?",
-    answer:
-      "Yes, there will be assigned seating at the reception. Your table number will be displayed in the Book of Guests section once your RSVP is confirmed. Our reception team will gladly guide you to your table so you can relax and enjoy the celebration.",
   },
   {
     question: "Is there parking available?",
@@ -64,7 +54,7 @@ const faqItems: FAQItem[] = [
   {
     question: "What should I give as a gift?",
     answer:
-      "Your presence and prayers are what we request most. However, if you desire to give a gift to Ransch Cristov and Iszabella, your thoughtful gesture would be humbly appreciated. You can find our gift registry information in the Gift Guide section if available.",
+      "Your presence and prayers are what we request most. However, if you desire to give a gift to Ransch Cristov and Iszabella, your thoughtful gesture would be humbly appreciated.",
   },
   {
     question: "Can I take photos and videos during the ceremony?",
@@ -75,16 +65,6 @@ const faqItems: FAQItem[] = [
     question: "Where can I access baptism photos and resources?",
     answer:
       "You can access all our baptism photos, videos, and other resources through our [DRIVE_LINK]Google Drive folder[/DRIVE_LINK]. Feel free to download and share your favorite memories!",
-  },
-  {
-    question: "What if I have dietary restrictions or allergies?",
-    answer:
-      "Please let us know about any dietary restrictions or allergies when you RSVP. We want to ensure everyone can enjoy the celebration comfortably.",
-  },
-  {
-    question: "Will the baptism be indoors or outdoors?",
-    answer:
-      "Both the baptism ceremony and reception will be held at covered venues, so we're prepared for any weather. However, we recommend checking the weather forecast and dressing accordingly.",
   },
 ]
 

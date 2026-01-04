@@ -11,14 +11,14 @@ const desktopHero = "/Details/LinkPreview.jpg"
 const mobileHero = "/Details/LinkPreview.jpg"
 const eventImageUrl = `${canonicalUrl}${desktopHero}`
 
-const coupleNames = `${siteConfig.couple.groomNickname} & ${siteConfig.couple.brideNickname}`
-const eventTitle = `${coupleNames} - Wedding Invitation`
-const eventDescription = `Celebrate the wedding of ${siteConfig.couple.groomNickname} and ${siteConfig.couple.brideNickname} on ${siteConfig.wedding.date} at ${siteConfig.ceremony.venue}. RSVP, explore their story, and find everything you need to join the celebration.`
+const childrenNames = "Ransch Cristov Penales & Iszabella Rans Penales"
+const eventTitle = `${childrenNames} - Baptism & Birthday Invitation`
+const eventDescription = `Please join us in celebrating a day filled with faith and love — the Baptism of Ransch Cristov Penales and Iszabella Rans Penales, and the 1st Birthday of our dear Ransch Cristov Penales.`
 
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "Event",
-  name: `${siteConfig.couple.groomNickname} & ${siteConfig.couple.brideNickname} Wedding`,
+  name: `${childrenNames} - Baptism & Birthday Celebration`,
   startDate: "2026-03-06T14:00:00+08:00",
   endDate: "2026-03-06T22:00:00+08:00",
   eventStatus: "https://schema.org/EventScheduled",
@@ -49,12 +49,12 @@ const jsonLd = {
   ],
   image: [eventImageUrl],
   description:
-    `You're invited to celebrate the wedding of ${siteConfig.couple.groomNickname} & ${siteConfig.couple.brideNickname}. Discover ceremony and reception details, RSVP, and explore their story.`,
+    `Please join us in celebrating a day filled with faith and love — the Baptism of Ransch Cristov Penales and Iszabella Rans Penales, and the 1st Birthday of our dear Ransch Cristov Penales.`,
   organizer: {
     "@type": "Person",
-    name: coupleNames,
+    name: childrenNames,
   },
-  eventHashtag: `#${siteConfig.couple.groomNickname}And${siteConfig.couple.brideNickname}SayIDo`,
+  eventHashtag: "#RanschCristovAndIszabellaRans",
 }
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" })
@@ -66,18 +66,18 @@ export const metadata: Metadata = {
   metadataBase: new URL(canonicalUrl),
   title: {
     default: eventTitle,
-    template: `%s | ${coupleNames}`,
+    template: `%s | ${childrenNames}`,
   },
   description: eventDescription,
   keywords:
-    `${siteConfig.couple.groomNickname} ${siteConfig.couple.brideNickname} wedding, ${siteConfig.ceremony.venue} wedding, ${siteConfig.reception.venue} wedding, wedding invitation, RSVP, wedding gallery, message wall, love story, #${siteConfig.couple.groomNickname}And${siteConfig.couple.brideNickname}SayIDo`,
-  applicationName: `${coupleNames} Wedding Invitation`,
+    `Ransch Cristov Penales, Iszabella Rans Penales, baptism, birthday, 1st birthday, baptism celebration, ${siteConfig.ceremony.venue} baptism, ${siteConfig.reception.venue} celebration, baptism invitation, birthday invitation, RSVP, celebration gallery, message wall, #RanschCristovAndIszabellaRans, #CristovAndIszabellaBaptism`,
+  applicationName: `${childrenNames} - Baptism & Birthday Invitation`,
   authors: [
-    { name: siteConfig.couple.groomNickname },
-    { name: siteConfig.couple.brideNickname },
+    { name: "Ransch Cristov Penales" },
+    { name: "Iszabella Rans Penales" },
   ],
-  creator: coupleNames,
-  publisher: coupleNames,
+  creator: childrenNames,
+  publisher: childrenNames,
   category: "Event",
   formatDetection: {
     email: false,
@@ -101,11 +101,11 @@ export const metadata: Metadata = {
   },
   manifest: "/favicon_io/site.webmanifest",
   openGraph: {
-    title: `${coupleNames} | ${siteConfig.wedding.date}`,
+    title: `${childrenNames} | ${siteConfig.wedding.date}`,
     description:
-      `Celebrate the union of ${siteConfig.couple.groomNickname} & ${siteConfig.couple.brideNickname} on ${siteConfig.wedding.date}. Discover their story, RSVP, and find important details for the ceremony and reception.`,
+      `Please join us in celebrating a day filled with faith and love — the Baptism of Ransch Cristov Penales and Iszabella Rans Penales, and the 1st Birthday of our dear Ransch Cristov Penales on ${siteConfig.wedding.date}. RSVP and find important details for the celebration.`,
     url: canonicalUrl,
-    siteName: `${coupleNames} Wedding`,
+    siteName: `${childrenNames} - Baptism & Birthday Celebration`,
     locale: "en_PH",
     type: "website",
     images: [
@@ -115,18 +115,18 @@ export const metadata: Metadata = {
         width: 1200,
         height: 630,
         type: "image/jpeg",
-        alt: `${coupleNames} Wedding Invitation - ${siteConfig.wedding.date}`,
+        alt: `${childrenNames} - Baptism & Birthday Invitation - ${siteConfig.wedding.date}`,
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: `${coupleNames} Wedding Invitation`,
+    title: `${childrenNames} - Baptism & Birthday Invitation`,
     description:
-      `You're invited to the wedding of ${siteConfig.couple.groomNickname} & ${siteConfig.couple.brideNickname} on ${siteConfig.wedding.date}. RSVP, explore their story, and get all the details for the big day! #${siteConfig.couple.groomNickname}And${siteConfig.couple.brideNickname}SayIDo`,
+      `Please join us in celebrating a day filled with faith and love — the Baptism of Ransch Cristov Penales and Iszabella Rans Penales, and the 1st Birthday of our dear Ransch Cristov Penales on ${siteConfig.wedding.date}. RSVP and get all the details for the celebration! #RanschCristovAndIszabellaRans #CristovAndIszabellaBaptism`,
     images: [eventImageUrl],
-    creator: `@${siteConfig.couple.groomNickname}And${siteConfig.couple.brideNickname}`,
-    site: `@${siteConfig.couple.groomNickname}And${siteConfig.couple.brideNickname}`,
+    creator: "@RanschCristovAndIszabellaRans",
+    site: "@RanschCristovAndIszabellaRans",
   },
   robots: {
     index: true,
@@ -140,7 +140,7 @@ export const metadata: Metadata = {
     },
   },
   appleWebApp: {
-    title: coupleNames,
+    title: childrenNames,
     statusBarStyle: "default",
     capable: true,
   },

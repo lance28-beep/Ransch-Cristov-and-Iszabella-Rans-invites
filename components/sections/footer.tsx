@@ -84,6 +84,7 @@ export function Footer() {
 
   return (
     <footer 
+      id="footer"
       className="relative z-20 mt-12 sm:mt-16 overflow-hidden"
     >
       {/* Paper texture base - matching Narrative section */}

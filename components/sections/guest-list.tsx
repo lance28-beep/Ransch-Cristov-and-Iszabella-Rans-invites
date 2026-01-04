@@ -59,7 +59,7 @@ function RSVPForm({ onSuccess }: RSVPFormProps) {
 
     try {
       await fetch(
-        "https://docs.google.com/forms/d/e/1FAIpQLSdvlWADgjUsTrYjIvpSFD9h12E3pypT8WVY0Ri-XugbpYjKwg/formResponse",
+        "https://docs.google.com/forms/d/e/1FAIpQLScvUFAj90dpxXBiSh1cDym9sJDUm9YR1EmEqYNhQ2VKs0fL_w/formResponse",
         {
           method: "POST",
           mode: "no-cors",
@@ -526,7 +526,7 @@ export function RSVP() {
 
   return (
     <Section
-      id="rsvp"
+      id="guest-list"
       className="relative py-20 sm:py-24 md:py-28 lg:py-32 overflow-hidden"
     >
       {/* Paper texture base - matching Narrative section */}
