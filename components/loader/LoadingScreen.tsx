@@ -82,7 +82,7 @@ export const LoadingScreen: React.FC<LoadingScreenProps> = ({ onComplete }) => {
         <div className="mb-8 sm:mb-12 animate-fade-in">
           <div className="relative w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48">
             <Image
-              src="/Details/birds.png"
+              src="/Details/loader.png"
               alt="Decorative birds"
               fill
               className="object-contain drop-shadow-lg"
