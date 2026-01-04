@@ -747,9 +747,10 @@ export function RSVP() {
                 lineHeight: "1.8",
               }}
             >
-              Unless we&apos;ve said otherwise, this invite is good for one (1) seat only.
+              Kindly respond on or before <strong className="font-semibold">January 7, 2026</strong> to secure your place on our final guest list and ensure we can reserve your seat at the reception.
               <br />
-              Please respond on or before <strong className="font-semibold">January 7, 2026</strong> to include you on the final guest list and assure you of seat/s at the reception.
+              <br />
+              If you&apos;ll be bringing accompanying guests, please include their full names in your response as well.
             </p>
           </motion.div>
 

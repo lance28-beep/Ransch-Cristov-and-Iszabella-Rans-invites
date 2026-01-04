@@ -44,7 +44,7 @@ const faqItems: FAQItem[] = [
   {
     question: "Can I bring a plus one or additional guests?",
     answer:
-      "Each invitation includes a specific number of reserved seats. Please check your invitation details in the RSVP section. If you need to request additional seats, you can use the 'Request to Join' feature, and we'll do our best to accommodate based on availability.",
+      "Yes, you are welcome to bring additional guests. Please make sure to register their names in the RSVP section so we can properly accommodate everyone and ensure seats are reserved for your party.",
   },
   {
     question: "Is there parking available?",
@@ -59,7 +59,7 @@ const faqItems: FAQItem[] = [
   {
     question: "Can I take photos and videos during the ceremony?",
     answer:
-      "We have a professional photographer and videographer capturing our special moments. We kindly ask that you keep your phones on silent and refrain from taking photos during the baptism ceremony. However, we'd love to see your photos and videos from the reception! Please check the Snap & Share section for details on how to upload them.",
+      "Yes, we are allowing and encouraging everyone to take photos! We would love to capture all these special moments through your perspective. We also kindly request that you upload all those captured moments through our Snap & Share section so we can all relive these beautiful memories together.",
   },
   {
     question: "Where can I access baptism photos and resources?",
