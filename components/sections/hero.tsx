@@ -6,12 +6,10 @@ import { TornPaperEdge } from "@/components/torn-paper-edge"
 import { siteConfig } from "@/content/site"
 
 const desktopImages = [
-  "/desktop-background/couple (1).jpeg",
-  "/desktop-background/couple (2).jpeg",
-  "/desktop-background/couple (3).jpeg",
-  "/desktop-background/couple (4).jpeg",
-  "/desktop-background/couple (5).jpeg",
-
+  "/mobile-background/celebrant (5).jpg",
+  "/mobile-background/celebrant (3).jpg",
+  "/mobile-background/celebrant (6).jpg",
+  "/mobile-background/celebrant (10).jpg",
 ]
 
 const mobileImages = [
