@@ -24,7 +24,7 @@ const faqItems: FAQItem[] = [
   {
     question: "When is the baptism and birthday celebration?",
     answer:
-      `Ransch Cristov and Iszabella Rans's baptism will be held on ${siteConfig.ceremony.date} (${siteConfig.ceremony.day}) at ${siteConfig.ceremony.time}. We are also celebrating the 1st Birthday of Ransch Cristov Penales. We kindly ask guests to arrive by ${siteConfig.ceremony.guestsTime} to help us begin promptly.`,
+      `Ransch Cristov and Iszabella Rans's baptism will be held on ${siteConfig.ceremony.date} (${siteConfig.ceremony.day}) at ${siteConfig.ceremony.time}. We are also celebrating the 1st Birthday of Ransch Cristov Penales. We kindly ask guests to arrive earlier than 9:00 AM to help us begin promptly.`,
   },
   {
     question: "Where will the baptism and reception take place?",
@@ -34,7 +34,7 @@ const faqItems: FAQItem[] = [
   {
     question: "What time should I arrive?",
     answer:
-      `Kindly arrive by ${siteConfig.ceremony.guestsTime} so we can begin the baptism ceremony promptly at exactly ${siteConfig.ceremony.time}. Your punctuality means so much to us!`,
+      `Kindly arrive earlier than 9:00 AM so we can begin the baptism ceremony promptly at exactly ${siteConfig.ceremony.time}. Your punctuality means so much to us!`,
   },
   {
     question: "How do I RSVP?",

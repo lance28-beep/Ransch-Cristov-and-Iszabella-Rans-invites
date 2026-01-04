@@ -284,10 +284,10 @@ export function Details() {
                   </h4>
                   <div className="space-y-2 sm:space-y-2.5">
                     <p className={`${cormorant.className} text-xs sm:text-sm text-[#4a5d4e] leading-relaxed font-light`}>
-                      Kindly arrive by <span className="font-medium text-[#4a5d4e]">{siteConfig.ceremony.guestsTime}</span> so we can begin the baptism ceremony promptly at exactly <span className="font-medium text-[#4a5d4e]">{siteConfig.ceremony.time}</span>.
+                      Kindly arrive earlier than <span className="font-medium text-[#4a5d4e]">9:00 AM</span> so we can begin the baptism ceremony promptly at exactly <span className="font-medium text-[#4a5d4e]">9:00 AM</span>.
                     </p>
                     <p className={`${cormorant.className} text-xs sm:text-sm text-[#4a5d4e] leading-relaxed font-light`}>
-                      Your punctuality means so much to us — and don&apos;t forget to have a light snack beforehand so you can enjoy the celebration comfortably!
+                      Please arrive early as 9:00 AM
                     </p>
                   </div>
                 </div>
